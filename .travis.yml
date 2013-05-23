@@ -1,0 +1,3 @@
+language: ruby
+before_script: mysql -e 'create database rene_test;'
+script: PADRINO_ENV=travis padrino rake
