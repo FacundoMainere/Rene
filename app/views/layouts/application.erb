@@ -40,7 +40,11 @@
         <ul class="nav pull-right" id="main-menu-right">
 
           <li><a rel="tooltip" href="/" title="Inicio">Inicio</a></li>
-
+          <% if current_account %>
+            <li><a rel="tooltip" href="/" title="Profile"><%= current_account.uid %></a></li>
+          <% else %>
+            <li><a rel="tooltip" href="/login" title="Login">Login</a></li>
+          <% end %>
         </ul>
       </div>
     </div>
