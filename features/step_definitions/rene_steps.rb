@@ -9,6 +9,13 @@ Then(/^I should see "(.*?)"$/) do |expected|
   end
 end
 
+Given(/^I am logged in$/) do
+  visit "/login"
+  fill_in("name", :with => "cucumber_user")
+  fill_in("email", :with => "cucumber_user@someplace.com")
+  click_button "submit"
+end
+
 Given(/^I am on "(.*?)"$/) do |arg1|
     pending # express the regexp above with the code you wish you had
 end

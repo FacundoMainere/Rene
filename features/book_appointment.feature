@@ -2,6 +2,10 @@ Feature: Book Appointments
   In order to organize my appointments
   As a medical office
   I want to be able to book appointments for my patients
+
+  Background:
+    Given I am logged in
+
   @wip
   Scenario: Happy path
     Given I am on "the new appointment page"
