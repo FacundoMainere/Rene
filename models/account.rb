@@ -6,6 +6,11 @@ class Account
     property :email, String
     property :uid, String
     property :provider, String
+
+    def friendly_name
+      name.nil? ? uid : name
+    end
+
     def self.create_with_omniauth(auth)
       account = Account.new
       account.provider = auth["provider"]
