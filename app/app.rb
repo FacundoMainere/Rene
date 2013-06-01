@@ -24,11 +24,7 @@ module Rene
     end
 
     access_control.roles_for :any do |role|
-      role.protect "/login_page"
-    end
-
-    get '/login_page' do
-      render '/login'
+      role.protect '/login'
     end
 
     get '/' do
