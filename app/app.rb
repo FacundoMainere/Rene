@@ -5,6 +5,7 @@ module Rene
     register Padrino::Helpers
     register Padrino::Admin::AccessControl
     enable :sessions
+    attr_accessor :login_page
 
     #set :allow_disabled_csrf, true
     configure :development, :travis do
@@ -17,12 +18,17 @@ module Rene
 
      configure :staging, :production do
       use OmniAuth::Builder do
-        provider :twitter, ENV['TWITTER_CONSUMER_KEY'], ENV['TWITTER_SECRET_KEY'] 
+        provider :twitter, ENV['TWITTER_CONSUMER_KEY'], ENV['TWITTER_SECRET_KEY']
       end
-      set :login_page, "/auth/twitter"    
+      set :login_page, "/auth/twitter"
     end
 
     access_control.roles_for :any do |role|
+      role.protect "/login_page"
+    end
+
+    get '/login_page' do
+      render '/login'
     end
 
     get '/' do
