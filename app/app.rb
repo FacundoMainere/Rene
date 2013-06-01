@@ -24,17 +24,12 @@ module Rene
       set :login_page, "/auth/twitter"
     end
 
-
-    access_control.roles_for :any do |role|
-      role.protect '/login'
-    end
-
     get '/' do
       render 'home/index'
     end
 
     access_control.roles_for :any do |role|
-      role.protect "/appoitment"
+      role.protect "/appointment"
     end
 
     get :login do

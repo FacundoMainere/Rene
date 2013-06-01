@@ -1,6 +1,7 @@
 When(/^I go to "(.*?)"$/) do |page_name|
     visit path_to(page_name)
 end
+
 Then(/^I should see "(.*?)"$/) do |expected|
   if page.respond_to? :should
     page.should have_content(expected)
@@ -16,12 +17,12 @@ Given(/^I am logged in$/) do
   click_button "submit"
 end
 
-Given(/^I am on "(.*?)"$/) do |arg1|
-    pending # express the regexp above with the code you wish you had
+Given(/^I am on "(.*?)"$/) do |page_name|
+    visit path_to(page_name)
 end
 
-Given(/^I fill in "(.*?)" with "(.*?)"$/) do |arg1, arg2|
-    pending # express the regexp above with the code you wish you had
+Given(/^I fill in "(.*?)" with "(.*?)"$/) do |field, field_content|
+    fill_in(field, :with => field_content)
 end
 
 Given(/^I fill in "(.*?)" with tomorrow$/) do |arg1|

@@ -6,7 +6,6 @@ Feature: Book Appointments
   Background:
     Given I am logged in
 
-  @wip
   Scenario: Happy path
     Given I am on "the new appointment page"
     And I fill in "appointment[medic]" with "Alvaro Ropereo"
