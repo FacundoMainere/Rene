@@ -41,9 +41,9 @@
 
           <li><a rel="tooltip" href="/" title="Inicio">Inicio</a></li>
           <% if current_account %>
-            <li><a rel="tooltip" href="/" title="Profile"><%= current_account.friendly_name %></a></li>
+          <li><a rel="tooltip" href="/" title="Profile"><%= current_account.friendly_name %></a></li>
           <% else %>
-            <li><a rel="tooltip" href="/login" title="Login">Login</a></li>
+          <li><a href= "/appoitment/new" title="Login">Login</a></li>
           <% end %>
         </ul>
       </div>
