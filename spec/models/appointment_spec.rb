@@ -12,7 +12,7 @@ describe Appointment do
       now=DateTime.now
       entered_date_and_time=DateTime.new(now.year,now.month,now.day+1,19,0,0,0)
       new_appointment=Appointment.add_new_appointment('Roberto Bolanios',DateTime.now+1,19,0,20)
-      new_appointment.dateAndHour.should eq entered_date_and_time
+      new_appointment.date_and_hour.should eq entered_date_and_time
     end
     it "should create a new instance of an appointment with the right duration" do
       new_appointment=Appointment.add_new_appointment('Roberto Bolanios',DateTime.now+1,19,0,20)
@@ -60,7 +60,7 @@ describe Appointment do
       appointment=Appointment.add_new_appointment('Roberto Bolanios',tomorrow,19,0,20)
       new_appointment=Appointment.new
       new_appointment.medic = 'Roberto Bolanios'
-      new_appointment.dateAndHour = DateTime.new(tomorrow.year,tomorrow.month,tomorrow.day,19,0,0,0)
+      new_appointment.date_and_hour = DateTime.new(tomorrow.year,tomorrow.month,tomorrow.day,19,0,0,0)
       new_appointment.duration = 30
       new_appointment.overlaps(appointment).should be true
     end
@@ -70,7 +70,7 @@ describe Appointment do
       appointment=Appointment.add_new_appointment('Roberto Bolanios',tomorrow,19,0,20)
       new_appointment=Appointment.new
       new_appointment.medic = 'Roberto Bolanios'
-      new_appointment.dateAndHour = DateTime.new(tomorrow.year,tomorrow.month,tomorrow.day,19,10,0,0)
+      new_appointment.date_and_hour = DateTime.new(tomorrow.year,tomorrow.month,tomorrow.day,19,10,0,0)
       new_appointment.duration = 5
       new_appointment.overlaps(appointment).should be true
     end
@@ -80,7 +80,7 @@ describe Appointment do
       appointment=Appointment.add_new_appointment('Roberto Bolanios',tomorrow,19,0,20)
       new_appointment=Appointment.new
       new_appointment.medic = 'Roberto Bolanios'
-      new_appointment.dateAndHour = DateTime.new(tomorrow.year,tomorrow.month,tomorrow.day,19,10,0,0)
+      new_appointment.date_and_hour = DateTime.new(tomorrow.year,tomorrow.month,tomorrow.day,19,10,0,0)
       new_appointment.duration = 10
       new_appointment.overlaps(appointment).should be true
     end
@@ -90,7 +90,7 @@ describe Appointment do
       appointment=Appointment.add_new_appointment('Roberto Bolanios',tomorrow,19,0,20)
       new_appointment=Appointment.new
       new_appointment.medic = 'Roberto Bolanios'
-      new_appointment.dateAndHour = DateTime.new(tomorrow.year,tomorrow.month,tomorrow.day,20,0,0,0)
+      new_appointment.date_and_hour = DateTime.new(tomorrow.year,tomorrow.month,tomorrow.day,20,0,0,0)
       new_appointment.duration = 30
       new_appointment.overlaps(appointment).should be false
     end

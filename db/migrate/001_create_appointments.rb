@@ -3,7 +3,7 @@ migration 1, :create_appointments do
     create_table :appointments do
       column :id, Integer, :serial => true
       column :medic, String, :length => 255
-      column :dateAndHour, DateTime
+      column :date_and_hour, DateTime
       column :duration, Integer
     end
   end
