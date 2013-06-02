@@ -34,7 +34,7 @@ When(/^I press "(.*?)"$/) do |button|
 end
 
 Given(/^the appointment with "(.*?)" the day "(.*?)" at "(.*?)" with a duration of "(.*?)" minutes was already booked$/) do |medic_name, date, hour, duration|
-    pending # express the regexp above with the code you wish you had
+  Appointment.add_new_appointment(medic_name,date,hour[0..1],hour[3..4], duration).save
 end
 
 Given(/^I fill in "(.*?)" with yesterday$/) do |field|
@@ -47,4 +47,8 @@ end
 
 Given(/^I fill in "(.*?)" with a past hour$/) do |field|
   fill_in(field, :with => (Time.now-3600).to_s[11..15])
+end
+
+After('@savesMedic') do
+  Appointment.first(:medic =>'Alvaro Ropereo').destroy
 end

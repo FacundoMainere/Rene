@@ -14,7 +14,7 @@ Feature: Book Appointments
     And I fill in "appointment[duration]" with "20"
     When I press "saveButton"
     Then I should see "Appointment was booked succesfully!"
-  @wip
+  @wip @savesMedic
   Scenario: Appointment already booked
     Given I am on "the new appointment page"
     And the appointment with "Alvaro Ropereo" the day "2013-09-01" at "16:00" with a duration of "20" minutes was already booked
