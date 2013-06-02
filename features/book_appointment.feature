@@ -5,6 +5,7 @@ Feature: Book Appointments
 
   Background:
     Given I am logged in
+ 
   @wip
   Scenario: Happy path
     Given I am on "the new appointment page"
@@ -14,6 +15,7 @@ Feature: Book Appointments
     And I fill in "appointment[duration]" with "20"
     When I press "saveButton"
     Then I should see "Appointment was booked succesfully!"
+ 
   @wip @savesMedic
   Scenario: Appointment already booked
     Given I am on "the new appointment page"
@@ -24,6 +26,7 @@ Feature: Book Appointments
     And I fill in "appointment[duration]" with "20"
     When I press "saveButton"
     Then I should see "Error: Appointment was already booked, select other appointment"
+ 
   @wip
   Scenario: Date is invalid
     Given I am on "the new appointment page"
@@ -33,6 +36,7 @@ Feature: Book Appointments
     And I fill in "appointment[duration]" with "20"
     When I press "saveButton"
     Then I should see "Error: Appointment is in the past"
+ 
   @wip
   Scenario: Hour is invalid
     Given I am on "the new appointment page"
@@ -42,6 +46,7 @@ Feature: Book Appointments
     And I fill in "appointment[duration]" with "20"
     When I press "saveButton"
     Then I should see "Error: Appointment is in the past"
+ 
   @wip
   Scenario: Medic field is invalid
     Given I am on "the new appointment page"
@@ -51,6 +56,7 @@ Feature: Book Appointments
     And I fill in "appointment[duration]" with "20"
     When I press "saveButton"
     Then I should see "Error: Use only alphabetic characters"
+  
   @wip
   Scenario: Medic field is blank
     Given I am on "the new appointment page"
@@ -60,6 +66,7 @@ Feature: Book Appointments
     And I fill in "appointment[duration]" with "20"
     When I press "saveButton"
     Then I should see "Error: medic name is required"
+  
   @wip
   Scenario: Hour field is blank
     Given I am on "the new appointment page"
@@ -69,6 +76,7 @@ Feature: Book Appointments
     And I fill in "appointment[duration]" with "20"
     When I press "saveButton"
     Then I should see "Error: hour is required"
+ 
   @wip
   Scenario: Hour field format is invalid
     Given I am on "the new appointment page"
@@ -78,6 +86,7 @@ Feature: Book Appointments
     And I fill in "appointment[duration]" with "20"
     When I press "saveButton"
     Then I should see "Error: hour format is 'hh:mm'"
+ 
   @wip
   Scenario: Date field format is invalid
     Given I am on "the new appointment page"
@@ -87,6 +96,7 @@ Feature: Book Appointments
     And I fill in "appointment[duration]" with "20"
     When I press "saveButton"
     Then I should see "Error: date format is 'yyyy-mm-dd'"
+
   @wip
   Scenario: Date field is blank
     Given I am on "the new appointment page"
