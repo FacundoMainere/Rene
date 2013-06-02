@@ -18,33 +18,33 @@ Given(/^I am logged in$/) do
 end
 
 Given(/^I am on "(.*?)"$/) do |page_name|
-    visit path_to(page_name)
+  visit path_to(page_name)
 end
 
 Given(/^I fill in "(.*?)" with "(.*?)"$/) do |field, field_content|
-    fill_in(field, :with => field_content)
+  fill_in(field, :with => field_content)
 end
 
-Given(/^I fill in "(.*?)" with tomorrow$/) do |arg1|
+Given(/^I fill in "(.*?)" with tomorrow$/) do |field|
+  fill_in(field, :with => (DateTime.now+1).to_s[0..9])
+end
+
+When(/^I press "(.*?)"$/) do |button|
+  click_button button
+end
+
+Given(/^the appointment with "(.*?)" the day "(.*?)" at "(.*?)" with a duration of "(.*?)" minutes was already booked$/) do |medic_name, date, hour, duration|
     pending # express the regexp above with the code you wish you had
 end
 
-When(/^I press "(.*?)"$/) do |arg1|
-    pending # express the regexp above with the code you wish you had
+Given(/^I fill in "(.*?)" with yesterday$/) do |field|
+  fill_in(field, :with => (DateTime.now-1).to_s[0..9])
 end
 
-Given(/^the appointment with "(.*?)" the day "(.*?)" at "(.*?)" with a duration of "(.*?)" minutes was already booked$/) do |arg1, arg2, arg3, arg4|
-    pending # express the regexp above with the code you wish you had
+Given(/^I fill in "(.*?)" with today$/) do |field|
+  fill_in(field, :with => DateTime.now.to_s[0..9])
 end
 
-Given(/^I fill in "(.*?)" with yesterday$/) do |arg1|
-    pending # express the regexp above with the code you wish you had
-end
-
-Given(/^I fill in "(.*?)" with today$/) do |arg1|
-    pending # express the regexp above with the code you wish you had
-end
-
-Given(/^I fill in "(.*?)" with a past hour$/) do |arg1|
-    pending # express the regexp above with the code you wish you had
+Given(/^I fill in "(.*?)" with a past hour$/) do |field|
+  fill_in(field, :with => (Time.now-3600).to_s[11..15])
 end

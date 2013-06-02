@@ -17,7 +17,7 @@ Feature: Book Appointments
   @wip
   Scenario: Appointment already booked
     Given I am on "the new appointment page"
-    And the appointment with "Alvaro Ropereo" the day "19/09/2013" at "16:00" with a duration of "20" minutes was already booked
+    And the appointment with "Alvaro Ropereo" the day "2013-09-01" at "16:00" with a duration of "20" minutes was already booked
     And I fill in "appointment[medic]" with "Alvaro Ropereo"
     And I fill in "appointment[date]" with tomorrow
     And I fill in "appointment[hour]" with "16:00"
@@ -86,7 +86,7 @@ Feature: Book Appointments
     And I fill in "appointment[hour]" with "19:00"
     And I fill in "appointment[duration]" with "20"
     When I press "saveButton"
-    Then I should see "Error: date format is 'dd/mm/yyyy'"
+    Then I should see "Error: date format is 'yyyy-mm-dd'"
   @wip
   Scenario: Date field is blank
     Given I am on "the new appointment page"
