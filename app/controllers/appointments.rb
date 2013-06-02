@@ -1,20 +1,23 @@
-Rene::App.controllers :appointment do
+Rene::App.controllers :appointments do
    
    get :new do
-      render 'appointment/new'
+      render 'appointments/new'
    end
 
    get :show do
+      @appointment = Appointment.get(params[:id].to_i)
       render 'appointments/show'
    end
 
    post :create do
-      @appoint = Appointment.new(params[:appoint])
-      if @appoint.save
-         redirect(url(:events, :show, :id => @appoint.id))
+      hour = render_hour(params[:hour])
+      minutes = render_minutes(params[:hour])
+      appointment = Appointment.add_new_appointment(params[:medic], render_date(params[:date]), hour, minutes, params[:duration])
+      if appointment.save
+         redirect(url(:appointments, :show, :id => appointment.id))
       else
-         flash.now[:error] = "Error: ambos campos son requeridos"
-         render 'events/new'
+         flash.now[:error] = "Error: Turno ya registrado. Ingrese un nuevo turno."
+         render 'appointments/new'
     end
    end
 

@@ -6,7 +6,6 @@ Feature: Book Appointments
   Background:
     Given I am logged in
  
-  @wip
   Scenario: Happy path
     Given I am on "the new appointment page"
     And I fill in "appointment[medic]" with "Alvaro Ropereo"
@@ -14,7 +13,7 @@ Feature: Book Appointments
     And I fill in "appointment[hour]" with "16:00"
     And I fill in "appointment[duration]" with "20"
     When I press "saveButton"
-    Then I should see "Appointment was booked succesfully!"
+    Then I should see "Detalles del turno:"
  
   @wip @savesMedic
   Scenario: Appointment already booked
@@ -25,7 +24,7 @@ Feature: Book Appointments
     And I fill in "appointment[hour]" with "16:00"
     And I fill in "appointment[duration]" with "20"
     When I press "saveButton"
-    Then I should see "Error: Appointment was already booked, select other appointment"
+    Then I should see "Error: Turno ya registrado. Ingrese un nuevo turno."
  
   @wip
   Scenario: Date is invalid

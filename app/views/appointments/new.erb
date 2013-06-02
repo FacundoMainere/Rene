@@ -1,0 +1,21 @@
+<div class="well">
+  <form class="centered" method="post" action='/appointments/create'>
+    <%= csrf_token_field %>
+    <h1>Nuevo turno:</h1>
+    <label for='medic'>Dortor/a:</label>
+    <input type="text" id="appointment[medic]" name="appointment[medic]" placeholder="Nombre del médico" class="large"/>
+    <label for='date'>Fecha:</label>
+    <input type="text" id="appointment[date]" name="appointment[date]" placeholder="Fecha: aaaa-mm-dd"/>
+    <label for='hour'>Horario:</label>
+    <input type="text" id="appointment[hour]" name="appointment[hour]" placeholder="Hora: hh:mm"/>
+    <label for='duration'>Tiempo de consulta:</label>
+    <input type="text" id="appointment[duration]" name="appointment[duration]" placeholder="Duración del turno"/>
+    <input type="submit" class="btn big" id="saveButton" value="Guardar" />
+    <% if flash[:error] %>
+        <div class="alert alert-error">
+          <%=flash[:error] %>
+        </div>
+    <% end %>
+
+  </form>
+</div>
