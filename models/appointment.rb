@@ -7,9 +7,8 @@ class Appointment
   property :medic, String, :required => true
   property :date_and_hour, DateTime, :required => true
   property :duration, Integer, :required => true
-  attr_accessor :medic, :date_and_hour, :duration
-
-  validates_with_method :check_date
+ 
+  validates_with_method :check_date, :check_turn_is_taken
 
   def check_date
     return (self.date_and_hour >= DateTime.now) if self.date_and_hour.is_a?(DateTime)
@@ -25,7 +24,7 @@ class Appointment
 
   def check_turn_is_taken
     turns_by_a_doctor=Appointment.all(:medic=>self.medic)
-    not turns_by_a_doctor.select{|appointment| self.overlaps(appointment)}.empty?
+    turns_by_a_doctor.select{|appointment| self.overlaps(appointment)}.empty?
   end
 
   def overlaps(other_appointment)
