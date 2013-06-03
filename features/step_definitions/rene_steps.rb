@@ -33,8 +33,9 @@ When(/^I press "(.*?)"$/) do |button|
   click_button button
 end
 
-Given(/^the appointment with "(.*?)" the day "(.*?)" at "(.*?)" with a duration of "(.*?)" minutes was already booked$/) do |medic_name, date, hour, duration|
-  Appointment.add_new_appointment(medic_name,date,hour[0..1],hour[3..4], duration).save
+Given(/^the appointment with "(.*?)" tomorrow at "(.*?)" with a duration of "(.*?)" minutes was already booked$/) do |medic_name, hour, duration|
+  a = Appointment.add_new_appointment(medic_name, DateTime.now+1, hour[0..1].to_i, hour[3..4].to_i, duration)
+  puts a.save
 end
 
 Given(/^I fill in "(.*?)" with yesterday$/) do |field|
