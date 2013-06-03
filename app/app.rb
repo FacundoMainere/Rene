@@ -27,9 +27,9 @@ module Rene
     get '/' do
       render 'home/index'
     end
-    
+
     access_control.roles_for :any do |role|
-      role.protect "/appoitment"
+      role.protect "/appointment"
     end
 
     get :login do
@@ -41,7 +41,7 @@ module Rene
       account = Account.find_by_provider_and_uid(auth["provider"], auth["uid"]) ||
                 Account.create_with_omniauth(auth)
       set_current_account(account)
-      redirect "/"
+      redirect "/appointments/new"
     end
   end
 end
