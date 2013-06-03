@@ -22,18 +22,21 @@ describe Appointment do
   describe 'check_date' do
 
     it 'should return false if date is before today' do
-      appointment=Appointment.add_new_appointment('Roberto Bolanios',DateTime.now-1,19,0,20)
+      appointment=Appointment.new
+      appointment.date_and_hour=DateTime.now-1
       appointment.check_date.should be false
     end
 
-    it 'should return false if date is today' do
-      today=DateTime.now
-      appointment=Appointment.add_new_appointment('Roberto Bolanios',today,(today+2.hours).to_s[11..12].to_i,today.to_s[14..15].to_i,20)
-      appointment.check_date.should be false
+    it 'should return true if date is today in two hours' do
+      today=DateTime.now+2.hours
+      appointment=Appointment.new
+      appointment.date_and_hour=today
+      appointment.check_date.should be true
     end
 
     it 'should return true if date is after today' do
-      appointment=Appointment.add_new_appointment('Roberto Bolanios',DateTime.now+1,19,0,20)
+      appointment=Appointment.new
+      appointment.date_and_hour=DateTime.now+1
       appointment.check_date.should be true
     end
   end

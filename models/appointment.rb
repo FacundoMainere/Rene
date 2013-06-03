@@ -7,7 +7,6 @@ class Appointment
   property :medic, String, :required => true
   property :date_and_hour, DateTime, :required => true
   property :duration, Integer, :required => true
- 
   validates_with_method :check_date, :check_turn_is_taken
 
   def check_date
