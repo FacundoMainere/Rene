@@ -9,9 +9,10 @@
     <label for='hour'>Horario:</label>
     <input type="text" id="appointment[hour]" name="hour"/>
     <label for='duration'>Tiempo de consulta:</label>
-    <input type="text" id="appointment[duration]" name="duration"/>
+    <input type="text" id="appointment[duration]" name="duration" value="15"/>
     </br>
     <input type="submit" class="btn big" id="saveButton" value="Guardar" />
+    </br></br>
     <% if flash[:error] %>
         <div class="alert alert-error">
           <%=flash[:error] %>
