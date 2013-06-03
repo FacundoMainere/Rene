@@ -3,13 +3,13 @@
     <%= csrf_token_field %>
     <h1>Nuevo turno:</h1>
     <label for='medic'>Nombre del médico:</label>
-    <input type="text" id="appointment[medic]" name="medic" placeholder="Nombre del médico" class="large"/>
+    <input type="text" id="appointment[medic]" name="medic" class="large"/>
     <label for='date'>Fecha:</label>
-    <input type="text" id="appointment[date]" name="date" placeholder="Fecha: aaaa-mm-dd"/>
+    <input type="text" id="appointment[date]" name="date"/>
     <label for='hour'>Horario:</label>
-    <input type="text" id="appointment[hour]" name="hour" placeholder="Hora: hh:mm"/>
+    <input type="text" id="appointment[hour]" name="hour"/>
     <label for='duration'>Tiempo de consulta:</label>
-    <input type="text" id="appointment[duration]" name="duration" placeholder="Duración del turno"/>
+    <input type="text" id="appointment[duration]" name="duration"/>
     <input type="submit" class="btn big" id="saveButton" value="Guardar" />
     <% if flash[:error] %>
         <div class="alert alert-error">
