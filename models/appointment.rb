@@ -7,6 +7,7 @@ class Appointment
   property :medic, String, :required => true
   property :date_and_hour, DateTime, :required => true
   property :duration, Integer, :required => true
+  
   validates_with_method :check_date, :check_turn_is_taken
 
   def check_date
@@ -22,7 +23,7 @@ class Appointment
   end
 
   def check_turn_is_taken
-    turns_by_a_doctor=Appointment.all(:medic=>self.medic)
+    turns_by_a_doctor=Appointment.all(:medic => self.medic)
     turns_by_a_doctor.select{|appointment| self.overlaps(appointment)}.empty?
   end
 
@@ -32,10 +33,10 @@ class Appointment
     (first_app_range.first <= second_app_range.last) and (second_app_range.first <= first_app_range.last)
   end
 
-  def Appointment.add_new_appointment(medic_name,date,hour,minutes,duration)
+  def Appointment.add_new_appointment(medic_name, date, hour, minutes, duration=15)
     new_appointment = self.new
     new_appointment.medic = new_appointment.capitalize_name(medic_name)
-    new_appointment.date_and_hour = DateTime.new(date.year,date.month,date.day,hour,minutes,0,0)
+    new_appointment.date_and_hour = DateTime.new(date.year, date.month, date.day, hour, minutes, 0, 0)
     new_appointment.duration = duration
     new_appointment
   end
