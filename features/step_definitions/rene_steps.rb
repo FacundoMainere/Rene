@@ -1,6 +1,7 @@
 When(/^I go to "(.*?)"$/) do |page_name|
     visit path_to(page_name)
 end
+
 Then(/^I should see "(.*?)"$/) do |expected|
   if page.respond_to? :should
     page.should have_content(expected)
@@ -16,34 +17,39 @@ Given(/^I am logged in$/) do
   click_button "submit"
 end
 
-Given(/^I am on "(.*?)"$/) do |arg1|
-    pending # express the regexp above with the code you wish you had
+Given(/^I am on "(.*?)"$/) do |page_name|
+  visit path_to(page_name)
 end
 
-Given(/^I fill in "(.*?)" with "(.*?)"$/) do |arg1, arg2|
-    pending # express the regexp above with the code you wish you had
+Given(/^I fill in "(.*?)" with "(.*?)"$/) do |field, field_content|
+  fill_in(field, :with => field_content)
 end
 
-Given(/^I fill in "(.*?)" with tomorrow$/) do |arg1|
-    pending # express the regexp above with the code you wish you had
+Given(/^I fill in "(.*?)" with tomorrow$/) do |field|
+  fill_in(field, :with => (DateTime.now+1).to_s[0..9])
 end
 
-When(/^I press "(.*?)"$/) do |arg1|
-    pending # express the regexp above with the code you wish you had
+When(/^I press "(.*?)"$/) do |button|
+  click_button button
 end
 
-Given(/^the appointment with "(.*?)" the day "(.*?)" at "(.*?)" with a duration of "(.*?)" minutes was already booked$/) do |arg1, arg2, arg3, arg4|
-    pending # express the regexp above with the code you wish you had
+Given(/^the appointment with "(.*?)" tomorrow at "(.*?)" with a duration of "(.*?)" minutes was already booked$/) do |medic_name, hour, duration|
+  a = Appointment.add_new_appointment(medic_name, DateTime.now+1, hour[0..1].to_i, hour[3..4].to_i, duration)
+  puts a.save
 end
 
-Given(/^I fill in "(.*?)" with yesterday$/) do |arg1|
-    pending # express the regexp above with the code you wish you had
+Given(/^I fill in "(.*?)" with yesterday$/) do |field|
+  fill_in(field, :with => (DateTime.now-1).to_s[0..9])
 end
 
-Given(/^I fill in "(.*?)" with today$/) do |arg1|
-    pending # express the regexp above with the code you wish you had
+Given(/^I fill in "(.*?)" with today$/) do |field|
+  fill_in(field, :with => DateTime.now.to_s[0..9])
 end
 
-Given(/^I fill in "(.*?)" with a past hour$/) do |arg1|
-    pending # express the regexp above with the code you wish you had
+Given(/^I fill in "(.*?)" with a past hour$/) do |field|
+  fill_in(field, :with => (Time.now-3600).to_s[11..15])
+end
+
+After('@savesMedic') do
+  Appointment.first(:medic =>'Alvaro Ropereo').destroy
 end
