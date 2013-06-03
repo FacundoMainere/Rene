@@ -2,7 +2,7 @@
   <form class="centered" method="post" action='/appointments/create'>
     <%= csrf_token_field %>
     <h1>Nuevo turno:</h1>
-    <label for='medic'>Doctor/a:</label>
+    <label for='medic'>Nombre del médico:</label>
     <input type="text" id="appointment[medic]" name="medic" placeholder="Nombre del médico" class="large"/>
     <label for='date'>Fecha:</label>
     <input type="text" id="appointment[date]" name="date" placeholder="Fecha: aaaa-mm-dd"/>
