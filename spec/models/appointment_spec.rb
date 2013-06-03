@@ -27,7 +27,8 @@ describe Appointment do
     end
 
     it 'should return false if date is today' do
-      appointment=Appointment.add_new_appointment('Roberto Bolanios',DateTime.now,19,0,20)
+      today=DateTime.now
+      appointment=Appointment.add_new_appointment('Roberto Bolanios',today,(today+2.hours).to_s[11..12].to_i,today.to_s[14..15].to_i,20)
       appointment.check_date.should be false
     end
 
