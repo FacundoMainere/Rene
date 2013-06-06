@@ -7,6 +7,8 @@ class Appointment
   property :medic, String, :required => true
   property :date_and_hour, DateTime, :required => true
   property :duration, Integer, :required => true
+  property :patient_email, String, :required => true
+  property :user_friendly_name, String, :required => true
   
   validates_with_method :check_date, :check_turn_is_taken
 
@@ -33,11 +35,13 @@ class Appointment
     (first_app_range.first <= second_app_range.last) and (second_app_range.first <= first_app_range.last)
   end
 
-  def Appointment.add_new_appointment(medic_name, date, hour, minutes, duration=15)
+  def Appointment.add_new_appointment(medic_name, date, hour, minutes, duration=15, patient_email, user_friendly_name)
     new_appointment = self.new
     new_appointment.medic = new_appointment.capitalize_name(medic_name)
     new_appointment.date_and_hour = DateTime.new(date.year, date.month, date.day, hour, minutes, 0, 0)
     new_appointment.duration = duration
+    new_appointment.patient_email = patient_email
+    new_appointment.user_friendly_name = user_friendly_name
     new_appointment
   end
 end
