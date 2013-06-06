@@ -5,98 +5,147 @@ Feature: Book Appointments
 
   Background:
     Given I am logged in
- 
-  @savesMedic
+
+  @savesMedic @wip
   Scenario: Happy path
     Given I am on "the new appointment page"
     And I fill in "appointment[medic]" with "Alvaro Ropereo"
     And I fill in "appointment[date]" with tomorrow
     And I fill in "appointment[hour]" with "16:00"
     And I fill in "appointment[duration]" with "20"
+    And I fill in "appointment[patient_email]" with "roberto@robertomail.com"
     When I press "saveButton"
     Then I should see "Detalles del turno:"
 
-  @savesMedic
+  @savesMedic @wip
   Scenario: Appointment already booked
     Given I am on "the new appointment page"
-    And the appointment with "Alvaro Ropereo" tomorrow at "16:00" with a duration of "20" minutes was already booked
+    And the appointment with "Alvaro Ropereo" tomorrow at "16:00" for "josefina@jmail.com" was already booked by "cucumber_user"
     And I fill in "appointment[medic]" with "Alvaro Ropereo"
     And I fill in "appointment[date]" with tomorrow
     And I fill in "appointment[hour]" with "16:00"
     And I fill in "appointment[duration]" with "20"
+    And I fill in "appointment[patient_email]" with "roberto@robertomail.com"
     When I press "saveButton"
     Then I should see "Error: Turno ya registrado. Ingrese un nuevo turno."
-
+  @wip
   Scenario: Date is invalid
     Given I am on "the new appointment page"
     And I fill in "appointment[medic]" with "Alvaro Ropereo"
     And I fill in "appointment[date]" with yesterday
     And I fill in "appointment[hour]" with "16:00"
     And I fill in "appointment[duration]" with "20"
+    And I fill in "appointment[patient_email]" with "roberto@robertomail.com"
     When I press "saveButton"
     Then I should see "Error: Fecha/hora invalida. Ingrese una fecha/hora posterior."
 
+  @wip
   Scenario: Hour is invalid
     Given I am on "the new appointment page"
     And I fill in "appointment[medic]" with "Alvaro Ropereo"
     And I fill in "appointment[date]" with today
     And I fill in "appointment[hour]" with a past hour
     And I fill in "appointment[duration]" with "20"
+    And I fill in "appointment[patient_email]" with "roberto@robertomail.com"
     When I press "saveButton"
     Then I should see "Error: Fecha/hora invalida. Ingrese una fecha/hora posterior."
 
+  @wip
   Scenario: Medic field is invalid
     Given I am on "the new appointment page"
     And I fill in "appointment[medic]" with "Dr. Alvaro Ropereo 3"
     And I fill in "appointment[date]" with tomorrow
     And I fill in "appointment[hour]" with "16:00"
     And I fill in "appointment[duration]" with "20"
+    And I fill in "appointment[patient_email]" with "roberto@robertomail.com"
     When I press "saveButton"
     Then I should see "Error: El nombre debe contener solo letras."
 
+  @wip
   Scenario: Medic field is blank
     Given I am on "the new appointment page"
     And I fill in "appointment[medic]" with ""
     And I fill in "appointment[date]" with tomorrow
     And I fill in "appointment[hour]" with "16:00"
     And I fill in "appointment[duration]" with "20"
+    And I fill in "appointment[patient_email]" with "roberto@robertomail.com"
     When I press "saveButton"
     Then I should see "Error: El campo 'Nombre de medico' es requerido."
 
-   Scenario: Date field is blank
+  @wip
+  Scenario: Date field is blank
     Given I am on "the new appointment page"
     And I fill in "appointment[medic]" with "Alvaro Ropereo"
     And I fill in "appointment[date]" with ""
     And I fill in "appointment[hour]" with "19:00"
     And I fill in "appointment[duration]" with "20"
+    And I fill in "appointment[patient_email]" with "roberto@robertomail.com"
     When I press "saveButton"
     Then I should see "Error: El campo 'Fecha' es requerido."
- 
+
+  @wip
   Scenario: Hour field is blank
     Given I am on "the new appointment page"
     And I fill in "appointment[medic]" with "Alvaro Ropereo"
     And I fill in "appointment[date]" with tomorrow
     And I fill in "appointment[hour]" with ""
     And I fill in "appointment[duration]" with "20"
+    And I fill in "appointment[patient_email]" with "roberto@robertomail.com"
     When I press "saveButton"
     Then I should see "Error: El campo 'Hora' es requerido."
 
+  @wip
   Scenario: Hour field format is invalid
     Given I am on "the new appointment page"
     And I fill in "appointment[medic]" with "Alvaro Ropereo"
     And I fill in "appointment[date]" with tomorrow
     And I fill in "appointment[hour]" with "19am"
     And I fill in "appointment[duration]" with "20"
+    And I fill in "appointment[patient_email]" with "roberto@robertomail.com"
     When I press "saveButton"
     Then I should see "Error: El formato de hora debe ser HH:MM."
 
+  @wip
   Scenario: Date field format is invalid
     Given I am on "the new appointment page"
     And I fill in "appointment[medic]" with "Alvaro Ropereo"
     And I fill in "appointment[date]" with "July 6th"
     And I fill in "appointment[hour]" with "19:00"
     And I fill in "appointment[duration]" with "20"
+    And I fill in "appointment[patient_email]" with "roberto@robertomail.com"
     When I press "saveButton"
     Then I should see "Error: El formato de fecha debe ser aaaa-mm-dd."
 
-  
+  @wip
+  Scenario: Email field format is invalid
+    Given I am on "the new appointment page"
+    And I fill in "appointment[medic]" with "Alvaro Ropereo"
+    And I fill in "appointment[date]" with "July 6th"
+    And I fill in "appointment[hour]" with "19:00"
+    And I fill in "appointment[duration]" with "20"
+    And I fill in "appointment[patient_email]" with "roberto"
+    When I press "saveButton"
+    Then I should see "Error: El formato de email debe ser example@exampleserver.com."
+
+  @wip
+  Scenario: Email field is blank
+    Given I am on "the new appointment page"
+    And I fill in "appointment[medic]" with "Alvaro Ropereo"
+    And I fill in "appointment[date]" with "July 6th"
+    And I fill in "appointment[hour]" with "19:00"
+    And I fill in "appointment[duration]" with "20"
+    And I fill in "appointment[patient_email]" with "roberto"
+    When I press "saveButton"
+    Then I should see "Error: El campo 'Email del paciente' es requerido."
+
+  @savesMedic @wip
+  Scenario: Patient already has an appointment at this time
+    Given I am on "the new appointment page"
+    And the appointment with "Alvaro Ropereo" tomorrow at "16:00" for "roberto@rmail.com" was already booked by "cucumber_user"
+    And I fill in "appointment[medic]" with "Hector Mendoza"
+    And I fill in "appointment[date]" with tomorrow
+    And I fill in "appointment[hour]" with "16:00"
+    And I fill in "appointment[duration]" with "20"
+    And I fill in "appointment[patient_email]" with "roberto@robertomail.com"
+    When I press "saveButton"
+    Then I should see "Error: Este paciente ya tiene un turno en ese horario."
