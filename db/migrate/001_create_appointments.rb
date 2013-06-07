@@ -5,6 +5,8 @@ migration 1, :create_appointments do
       column :medic, String, :length => 255
       column :date_and_hour, DateTime
       column :duration, Integer
+      column :patient_email, String, :length => 255
+      column :user_friendly_name, String, :length => 255
     end
   end
 
