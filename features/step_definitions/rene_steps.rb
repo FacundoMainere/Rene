@@ -10,6 +10,10 @@ Then(/^I should see "(.*?)"$/) do |expected|
   end
 end
 
+Then(/^I should see "(.*?)" upcoming appointments$/) do |count|
+  all("table#recordTable tr").count == count
+end
+
 Given(/^I am logged in$/) do
   visit "/login"
   fill_in("name", :with => "cucumber_user")
@@ -37,6 +41,12 @@ Given(/^the appointment with "(.*?)" tomorrow at "(.*?)" for "(.*?)" was already
   a = Appointment.add_new_appointment(medic_name, DateTime.now+1, hour[0..1].to_i, hour[3..4].to_i, patient_email, user)
   a.save
 end
+
+Given(/^the appointment with "(.*?)" yesterday at "(.*?)" for "(.*?)" was already booked by "(.*?)"$/) do |medic_name, hour, patient_email, user|
+  a = Appointment.add_new_appointment(medic_name, DateTime.now-1, hour[0..1].to_i, hour[3..4].to_i, patient_email, user)
+  a.save
+end
+
 
 Given(/^I fill in "(.*?)" with yesterday$/) do |field|
   fill_in(field, :with => (DateTime.now-1).to_s[0..9])
