@@ -7,10 +7,10 @@ class Appointment
   property :medic, String, :required => true
   property :date_and_hour, DateTime, :required => true
   property :duration, Integer, :required => true
-  property :patient_email, String, :required => true
+  property :patient_email, String, :required => true, :format => :email_address
   property :user_friendly_name, String, :required => true
   
-  validates_with_method :check_date, :check_turn_is_taken
+  validates_with_method :check_date, :check_turn_is_taken, :check_patient_is_available
 
   def check_date
     return (self.date_and_hour >= DateTime.now) if self.date_and_hour.is_a?(DateTime)
@@ -25,7 +25,12 @@ class Appointment
   end
 
   def check_turn_is_taken
-    turns_by_a_doctor=Appointment.all(:medic => self.medic)
+    turns_by_a_doctor=Appointment.all(:medic => self.medic, :user_friendly_name => self.user_friendly_name)
+    turns_by_a_doctor.select{|appointment| self.overlaps(appointment)}.empty?
+  end
+
+  def check_patient_is_available
+    turns_by_a_doctor=Appointment.all(:patient_email => self.patient_email)
     turns_by_a_doctor.select{|appointment| self.overlaps(appointment)}.empty?
   end
 
