@@ -9,6 +9,12 @@ Rene::App.controllers :appointments do
       render 'appointments/show'
    end
 
+   get :list do
+      @appointments = current_account.list_upcoming_turns
+      @message = "No hay turnos proximos."
+      render 'appointments/list'
+   end
+
    post :create do
       medic_name = params[:medic]
       date = params[:date]
