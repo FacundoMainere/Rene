@@ -34,7 +34,7 @@ When(/^I press "(.*?)"$/) do |button|
 end
 
 Given(/^the appointment with "(.*?)" tomorrow at "(.*?)" for "(.*?)" was already booked by "(.*?)"$/) do |medic_name, hour, patient_email, user|
-  a = Appointment.add_new_appointment(medic_name, DateTime.now+1, hour[0..1].to_i, hour[3..4].to_i, duration)
+  a = Appointment.add_new_appointment(medic_name, DateTime.now+1, hour[0..1].to_i, hour[3..4].to_i, patient_email, user)
   a.save
 end
 
@@ -51,5 +51,5 @@ Given(/^I fill in "(.*?)" with a past hour$/) do |field|
 end
 
 After('@savesMedic') do
-  Appointment.first(:medic =>'Alvaro Ropereo').destroy
+  Appointment.all.destroy
 end
