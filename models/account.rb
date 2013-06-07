@@ -20,4 +20,11 @@ class Account
      account.save
      account
   end
+
+  def list_upcoming_turns
+      appointments = Appointment.all(:user_friendly_name => self.friendly_name) &
+      Appointment.all(:date_and_hour.gte => DateTime.now)
+      appointments.all(:order => [:date_and_hour.asc])
+  end
+
 end
