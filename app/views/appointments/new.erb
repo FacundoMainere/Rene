@@ -2,18 +2,20 @@
   <form class="centered" method="post" action='/appointments/create'>
     <%= csrf_token_field %>
     <h1>Nuevo turno:</h1>
-    <label for='medic'>Nombre del médico:</label>
-    <input type="text" id="appointment[medic]" name="medic" placeholder="Nombre Apellido"class="large"/>
-    <label for='date'>Fecha:</label>
-    <input type="text" id="appointment[date]" name="date" placeholder="AAAA-MM-DD"/>
-    <label for='hour'>Horario:</label>
-    <input type="text" id="appointment[hour]" name="hour" placeholder="HH:MM"/>
-    <label for='patient_email'>Email del paciente:</label>
-    <input type="text" id="appointment[patient_email]" name="patient_email" placeholder="ejemplo@servidorejemplo.com"/>
-    <label for='duration'>Tiempo de consulta:</label>
+      <label for='medic'>Nombre del médico:</label>
+    <input type="text" id="appointment[medic]" name="medic" placeholder="Nombre Apellido" class="large"/>
+      <label for='date'>Fecha:</label>
+    <input type="date" id="appointment[date]" name="date" placeholder="AAAA-MM-DD"/>
+       <label for='hour'>Horario:</label>
+    <input type="time" id="appointment[hour]" name="hour" placeholder="HH:MM" class="tiny"/>
+       <label for='patient_email'>Email del paciente:</label>
+    <input type="email" id="appointment[patient_email]" name="patient_email" placeholder="ejemplo@servidorejemplo.com"/>
+      <label for='duration'>Tiempo de consulta:</label>
     <input type="text" id="appointment[duration]" name="duration" value="15"/>
+    
     </br>
     <input type="submit" class="btn big" id="saveButton" value="Guardar" />
+    
     </br></br>
     <% if flash[:error] %>
         <div class="alert alert-error">

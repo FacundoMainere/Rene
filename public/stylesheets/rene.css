@@ -15,12 +15,16 @@ footer {
 }
 
 input[type="text"] {
-    height: 35px;
-    font-size: 22px;
+    height: 30px;
+    font-size: 18px;
 }
 
 .large{
     width: 400px;
+}
+
+.tiny{
+    width: 75px;
 }
 
 .big {
@@ -37,4 +41,21 @@ form h1 {
 
 .container {
     width: 950px;
+}
+
+input[type="date"] {
+   height: 30px;
+   font-size: 18px;
+   display: -webkit-inline-flex;
+}
+
+input[type="time"] {
+   height: 30px;
+   font-size: 18px;
+   display: -webkit-inline-flex;
+}
+
+input[type="email"] {
+    height: 30px;
+    font-size: 18px;
 }
