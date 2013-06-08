@@ -59,3 +59,16 @@ input[type="email"] {
     height: 30px;
     font-size: 18px;
 }
+
+.mail {
+    color: rgb(30, 30, 30);
+    text-decoration: none;
+        -moz-text-blink: none;
+        -moz-text-decoration-color: -moz-use-text-color;
+        -moz-text-decoration-line: none;
+        -moz-text-decoration-style: solid;
+}
+
+. alert-success {
+    background-color: rgb(100, 180, 150);
+}
