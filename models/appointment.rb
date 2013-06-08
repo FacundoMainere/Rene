@@ -9,7 +9,7 @@ class Appointment
   property :duration, Integer, :required => true
   property :patient_email, String, :required => true, :format => :email_address
   property :user_friendly_name, String, :required => true
-  
+
   validates_with_method :check_date, :check_turn_is_taken, :check_patient_is_available
 
   def check_date
