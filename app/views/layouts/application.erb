@@ -43,7 +43,14 @@
           <% if current_account %>
           <li><a rel="tooltip" href="/appointments/new" title="NewAppointment">Nuevo turno</a></li>
           <li><a rel="tooltip" href="/appointments/list" title="AppointmentsList">Lista de turnos</a></li>
-          <li><a rel="tooltip" href="/" title="Profile"><%= current_account.friendly_name %></a></li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" href="#" data-toggle="dropdown"><%= current_account.friendly_name %>
+               <b class="caret"></b>
+            </a>
+               <ul class="dropdown-menu">
+                  <li><a href="/logout"> Cerrar Sesion</a></li>
+               </ul>
+          </li>
           <% else %>
           <li><a href= "/appointments/new" title="Login">Login</a></li>
           <% end %>
