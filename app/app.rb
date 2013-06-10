@@ -46,7 +46,7 @@ module Rene
       account = Account.find_by_provider_and_uid(auth["provider"], auth["uid"]) ||
                 Account.create_with_omniauth(auth)
       set_current_account(account)
-      redirect "/appointments/new"
+      redirect "/"
     end
   end
 end
