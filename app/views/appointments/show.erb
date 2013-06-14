@@ -1,0 +1,10 @@
+<div class="well">
+  <form class="centered" method="get" action='/appointments/new'>
+    <h1>Detalles del turno:</h1>
+    <p>Dr.: <%= @appointment.medic %></p>
+    <p>Fecha: <%= @appointment.date_and_hour.to_s[0..9] %></p>
+    <p>Hora: <%= @appointment.date_and_hour.to_s[11..15] %></p>
+    <p>Email del paciente: <%= @appointment.patient_email %></p>
+    <input type="submit" class="btn big" id="returnNew" value="Nuevo Turno" />
+  </form>
+</div>

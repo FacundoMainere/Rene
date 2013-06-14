@@ -20,7 +20,7 @@ Desde el punto de vista académico la aplicación no es más que una excusa para
 * Continous Integration & Delivery
 
 
-Desde el punto de vista funcional *explicación de la aplicación*
+Desde el punto de vista funcional la aplicación permite a un consultorio médico gestionar los turnos para así facilitar el trabajo del personal administrativo, y a los pacientes reservar turnos de manera sencilla sin más requerimientos que una cuenta en una red social y la aprobación del consultorio.
 
 Finalmente, para el desarrollo del proyecto estamos usando las siguientes herramientas:
 * Ruby como lenguaje de programación
