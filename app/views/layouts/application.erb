@@ -40,7 +40,20 @@
         <ul class="nav pull-right" id="main-menu-right">
 
           <li><a rel="tooltip" href="/" title="Inicio">Inicio</a></li>
-
+          <% if current_account %>
+          <li><a rel="tooltip" href="/appointments/new" title="NewAppointment">Nuevo turno</a></li>
+          <li><a rel="tooltip" href="/appointments/list" title="AppointmentsList">Lista de turnos</a></li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" href="#" data-toggle="dropdown"><%= current_account.friendly_name %>
+               <b class="caret"></b>
+            </a>
+               <ul class="dropdown-menu">
+                  <li><a href="/logout"> Cerrar Sesion</a></li>
+               </ul>
+          </li>
+          <% else %>
+          <li><a href= "/appointments/new" title="Login">Login</a></li>
+          <% end %>
         </ul>
       </div>
     </div>
@@ -58,7 +71,7 @@
 
 <footer id="footer">
   <div class="container">
-  Basado en <a href="http://twitter.github.com/bootstrap/">Bootstrap</a>. Alojado en <a href="http://pages.github.com/">GitHub</a>. Iconos de <a href="http://fortawesome.github.com/Font-Awesome/">Font Awesome</a>. Web fonts de <a href="http://www.google.com/webfonts">Google</a>.</p>
+  Basado en <a href="http://twitter.github.com/bootstrap/">Bootstrap</a>. Alojado en <a href="http://pages.github.com/">GitHub</a>. Servicio de DNS provisto por <a href="http://freedns.afraid.org/">FreeDNS</a>. Iconos de <a href="http://fortawesome.github.com/Font-Awesome/">Font Awesome</a>. Web fonts de <a href="http://www.google.com/webfonts">Google</a>.</p>
   </div>
 </footer>
 

@@ -1,0 +1,25 @@
+<% if @appointments.empty? %>
+      <legend><%= @message %></legend>
+<% else %>
+   <table class="table table-bordered table-striped table-hover">
+     <thead>
+       <tr>
+           <th>Doctor/a</th>
+           <th>Fecha</th>
+           <th>Hora</th>
+           <th>Paciente</th>
+       </tr>
+      </thead>
+      <tbody>
+         <% @appointments.each do |appointment| %>
+         <tr>
+            <td><%= appointment.medic %></td>
+            <td><%= appointment.date_and_hour.to_s[0..9] %></td>
+            <td><%= appointment.date_and_hour.to_s[11..15] %></td>
+            <td><%= appointment.patient_email %></td>
+         </tr>
+         <% end %>
+      </tbody>
+  </table>
+<% end %>
+
