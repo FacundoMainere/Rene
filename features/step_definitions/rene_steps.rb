@@ -57,7 +57,7 @@ Given(/^I fill in "(.*?)" with today$/) do |field|
 end
 
 Given(/^I fill in "(.*?)" with a past hour$/) do |field|
-  fill_in(field, :with => (Time.now-3600).to_s[11..15])
+  fill_in(field, :with => (Time.now-1).to_s[11..15])
 end
 
 After('@savesMedic') do

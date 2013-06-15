@@ -13,7 +13,7 @@ Feature: Book Appointments
     And I fill in "appointment[date]" with tomorrow
     And I fill in "appointment[hour]" with "16:00"
     And I fill in "appointment[duration]" with "20"
-    And I fill in "appointment[patient_email]" with "roberto@robertomail.com"
+    And I fill in "appointment[patient_name]" with "roberto@robertomail.com"
     When I press "saveButton"
     Then I should see "Detalles del turno:"
 
@@ -25,7 +25,7 @@ Feature: Book Appointments
     And I fill in "appointment[date]" with tomorrow
     And I fill in "appointment[hour]" with "16:00"
     And I fill in "appointment[duration]" with "20"
-    And I fill in "appointment[patient_email]" with "roberto@robertomail.com"
+    And I fill in "appointment[patient_name]" with "roberto@robertomail.com"
     When I press "saveButton"
     Then I should see "Error: Turno ya registrado. Ingrese un nuevo turno."
 
@@ -35,7 +35,7 @@ Feature: Book Appointments
     And I fill in "appointment[date]" with yesterday
     And I fill in "appointment[hour]" with "16:00"
     And I fill in "appointment[duration]" with "20"
-    And I fill in "appointment[patient_email]" with "roberto@robertomail.com"
+    And I fill in "appointment[patient_name]" with "roberto@robertomail.com"
     When I press "saveButton"
     Then I should see "Error: Fecha/hora invalida. Ingrese una fecha/hora posterior."
 
@@ -46,7 +46,7 @@ Feature: Book Appointments
     And I fill in "appointment[date]" with today
     And I fill in "appointment[hour]" with a past hour
     And I fill in "appointment[duration]" with "20"
-    And I fill in "appointment[patient_email]" with "roberto@robertomail.com"
+    And I fill in "appointment[patient_name]" with "roberto@robertomail.com"
     When I press "saveButton"
     Then I should see "Error: Fecha/hora invalida. Ingrese una fecha/hora posterior."
 
@@ -57,7 +57,7 @@ Feature: Book Appointments
     And I fill in "appointment[date]" with tomorrow
     And I fill in "appointment[hour]" with "16:00"
     And I fill in "appointment[duration]" with "20"
-    And I fill in "appointment[patient_email]" with "roberto@robertomail.com"
+    And I fill in "appointment[patient_name]" with "roberto@robertomail.com"
     When I press "saveButton"
     Then I should see "Error: El nombre debe contener solo letras."
 
@@ -68,7 +68,7 @@ Feature: Book Appointments
     And I fill in "appointment[date]" with tomorrow
     And I fill in "appointment[hour]" with "16:00"
     And I fill in "appointment[duration]" with "20"
-    And I fill in "appointment[patient_email]" with "roberto@robertomail.com"
+    And I fill in "appointment[patient_name]" with "roberto@robertomail.com"
     When I press "saveButton"
     Then I should see "Error: El campo 'Nombre del medico' es requerido."
 
@@ -79,7 +79,7 @@ Feature: Book Appointments
     And I fill in "appointment[date]" with ""
     And I fill in "appointment[hour]" with "19:00"
     And I fill in "appointment[duration]" with "20"
-    And I fill in "appointment[patient_email]" with "roberto@robertomail.com"
+    And I fill in "appointment[patient_name]" with "roberto@robertomail.com"
     When I press "saveButton"
     Then I should see "Error: El campo 'Fecha' es requerido."
 
@@ -90,7 +90,7 @@ Feature: Book Appointments
     And I fill in "appointment[date]" with tomorrow
     And I fill in "appointment[hour]" with ""
     And I fill in "appointment[duration]" with "20"
-    And I fill in "appointment[patient_email]" with "roberto@robertomail.com"
+    And I fill in "appointment[patient_name]" with "roberto@robertomail.com"
     When I press "saveButton"
     Then I should see "Error: El campo 'Horario' es requerido."
 
@@ -101,7 +101,7 @@ Feature: Book Appointments
     And I fill in "appointment[date]" with tomorrow
     And I fill in "appointment[hour]" with "19am"
     And I fill in "appointment[duration]" with "20"
-    And I fill in "appointment[patient_email]" with "roberto@robertomail.com"
+    And I fill in "appointment[patient_name]" with "roberto@robertomail.com"
     When I press "saveButton"
     Then I should see "Error: El formato de hora debe ser HH:MM."
 
@@ -112,7 +112,7 @@ Feature: Book Appointments
     And I fill in "appointment[date]" with "July 6th"
     And I fill in "appointment[hour]" with "19:00"
     And I fill in "appointment[duration]" with "20"
-    And I fill in "appointment[patient_email]" with "roberto@robertomail.com"
+    And I fill in "appointment[patient_name]" with "roberto@robertomail.com"
     When I press "saveButton"
     Then I should see "Error: El formato de fecha debe ser aaaa-mm-dd."
 
@@ -122,9 +122,9 @@ Feature: Book Appointments
     And I fill in "appointment[medic]" with "Alvaro Ropereo"
     And I fill in "appointment[date]" with tomorrow
     And I fill in "appointment[hour]" with "19:00"
-    And I fill in "appointment[patient_email]" with "roberto"
+    And I fill in "appointment[patient_name]" with "roberto gomez"
     When I press "saveButton"
-    Then I should see "Error: El formato de email debe ser example@exampleserver.com."
+    Then I should see "Error: El nombre de usuario del paciente no debe contener espacios."
 
 
   Scenario: Email field is blank
@@ -133,9 +133,9 @@ Feature: Book Appointments
     And I fill in "appointment[date]" with tomorrow
     And I fill in "appointment[hour]" with "19:00"
     And I fill in "appointment[duration]" with "20"
-    And I fill in "appointment[patient_email]" with ""
+    And I fill in "appointment[patient_name]" with ""
     When I press "saveButton"
-    Then I should see "Error: El campo 'Email del paciente' es requerido."
+    Then I should see "Error: El nombre de usuario del paciente es requerido."
 
   @savesMedic
   Scenario: Patient already has an appointment at this time
@@ -144,6 +144,6 @@ Feature: Book Appointments
     And I fill in "appointment[medic]" with "Hector Mendoza"
     And I fill in "appointment[date]" with tomorrow
     And I fill in "appointment[hour]" with "16:00"
-    And I fill in "appointment[patient_email]" with "roberto@rmail.com"
+    And I fill in "appointment[patient_name]" with "roberto@rmail.com"
     When I press "saveButton"
     Then I should see "Error: Este paciente ya tiene un turno en ese horario."

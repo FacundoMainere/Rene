@@ -20,13 +20,13 @@ Rene::App.controllers :appointments do
       date = params[:date]
       hour_and_minutes = params[:hour]
       duration = params[:duration]
-      patient_email = params[:patient_email]
+      patient_name = params[:patient_name]
 
-      if validation(hour_and_minutes, date, medic_name, duration, patient_email)
+      if validation(hour_and_minutes, date, medic_name, duration, patient_name)
          hour = render_hour(hour_and_minutes)
          minutes = render_minutes(hour_and_minutes)
          @appointment = Appointment.add_new_appointment(medic_name, render_date(date), hour, 
-                                                        minutes, duration, patient_email, current_account.friendly_name)
+                                                        minutes, duration, patient_name, current_account.friendly_name)
 
          if @appointment.save
             redirect(url(:appointments, :show, :id => @appointment.id))
@@ -43,7 +43,7 @@ Rene::App.controllers :appointments do
             render 'appointments/new'
          end
       else
-         flash.now[:error] = validation_error(hour_and_minutes, date, medic_name, duration, patient_email)
+         flash.now[:error] = validation_error(hour_and_minutes, date, medic_name, duration, patient_name)
          render 'appointments/new'
       end
 
