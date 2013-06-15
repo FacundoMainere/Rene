@@ -10,7 +10,7 @@ Rene::App.controllers :appointments do
    end
 
    get :list do
-      @appointments = current_account.list_upcoming_turns
+      @appointments = current_account.medic_list_upcoming_appointments
       @message = "No hay turnos proximos."
       render 'appointments/list'
    end

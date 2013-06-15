@@ -21,9 +21,17 @@ class Account
      account
   end
 
-  def list_upcoming_turns
-      appointments = Appointment.all(:user_friendly_name => self.friendly_name) &
+  def list_upcoming_appointments_as(a_role_identifying_symbol)
+      appointments = Appointment.all(a_role_identifying_symbol => self.friendly_name) &
       Appointment.all(:date_and_hour.gte => DateTime.now, :order => [:date_and_hour.asc])
+  end
+  
+  def medic_list_upcoming_appointments
+    list_upcoming_appointments_as :user_friendly_name
+  end
+
+  def patient_list_upcoming_appointments
+    list_upcoming_appointments_as :patient_name
   end
 
 end
