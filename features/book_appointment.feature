@@ -61,40 +61,6 @@ Feature: Book Appointments
     When I press "saveButton"
     Then I should see "Error: El nombre debe contener solo letras."
 
-
-  Scenario: Medic field is blank
-    Given I am on "the new appointment page"
-    And I fill in "appointment[medic]" with ""
-    And I fill in "appointment[date]" with tomorrow
-    And I fill in "appointment[hour]" with "16:00"
-    And I fill in "appointment[duration]" with "20"
-    And I fill in "appointment[patient_name]" with "roberto_r"
-    When I press "saveButton"
-    Then I should see "Error: El campo 'Nombre del medico' es requerido."
-
-
-  Scenario: Date field is blank
-    Given I am on "the new appointment page"
-    And I fill in "appointment[medic]" with "Alvaro Ropereo"
-    And I fill in "appointment[date]" with ""
-    And I fill in "appointment[hour]" with "19:00"
-    And I fill in "appointment[duration]" with "20"
-    And I fill in "appointment[patient_name]" with "roberto_r"
-    When I press "saveButton"
-    Then I should see "Error: El campo 'Fecha' es requerido."
-
- 
-  Scenario: Hour field is blank
-    Given I am on "the new appointment page"
-    And I fill in "appointment[medic]" with "Alvaro Ropereo"
-    And I fill in "appointment[date]" with tomorrow
-    And I fill in "appointment[hour]" with ""
-    And I fill in "appointment[duration]" with "20"
-    And I fill in "appointment[patient_name]" with "roberto_r"
-    When I press "saveButton"
-    Then I should see "Error: El campo 'Horario' es requerido."
-
-  
   Scenario: Hour field format is invalid
     Given I am on "the new appointment page"
     And I fill in "appointment[medic]" with "Alvaro Ropereo"
@@ -115,7 +81,6 @@ Feature: Book Appointments
     And I fill in "appointment[patient_name]" with "roberto_r"
     When I press "saveButton"
     Then I should see "Error: El formato de fecha debe ser aaaa-mm-dd."
-
   
   Scenario: Patient name field format is invalid
     Given I am on "the new appointment page"
@@ -125,17 +90,6 @@ Feature: Book Appointments
     And I fill in "appointment[patient_name]" with "roberto gomez"
     When I press "saveButton"
     Then I should see "Error: El nombre de usuario del paciente no debe contener espacios."
-
-
-  Scenario: Email field is blank
-    Given I am on "the new appointment page"
-    And I fill in "appointment[medic]" with "Alvaro Ropereo"
-    And I fill in "appointment[date]" with tomorrow
-    And I fill in "appointment[hour]" with "19:00"
-    And I fill in "appointment[duration]" with "20"
-    And I fill in "appointment[patient_name]" with ""
-    When I press "saveButton"
-    Then I should see "Error: El nombre de usuario del paciente es requerido."
 
   @savesMedic
   Scenario: Patient already has an appointment at this time
