@@ -15,4 +15,5 @@ end
 # You can handle all padrino applications using instead:
 #   Padrino.application
 Capybara.default_driver = :selenium
+Capybara.server_port = 3000
 Capybara.app = Rene::App.tap { |app|  }
