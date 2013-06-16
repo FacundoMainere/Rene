@@ -16,8 +16,8 @@ end
 
 Given(/^I am logged in$/) do
   visit "/login"
-  fill_in("name", :with => "cucumber_user")
-  fill_in("email", :with => "cucumber_user@someplace.com")
+  fill_in("name", :with => "cucumber")
+  fill_in("email", :with => "cucumber_user")
   click_button "submit"
 end
 
@@ -59,6 +59,19 @@ end
 Given(/^I fill in "(.*?)" with a past hour$/) do |field|
   fill_in(field, :with => (Time.now-1).to_s[11..15])
 end
+
+Given(/^I click on checkbox of "(.*?)" appointment$/) do |field|
+  check(field)
+end
+
+Then(/^I should not see "(.*?)"$/) do |text|
+  if page.respond_to? :should
+      page.should have_no_content(text)
+    else
+      assert page.has_no_content?(text)
+    end
+end
+
 
 After('@savesMedic') do
   Appointment.all.destroy
