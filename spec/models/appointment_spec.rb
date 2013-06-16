@@ -124,6 +124,32 @@ describe Appointment do
       new_appointment.check_patient_is_available().should be false
     end
   end
+  describe 'check turn is taken' do
+    it 'should be true when patient does not already have an appointment for selected date and hour' do
+      tomorrow=DateTime.now+1
+      Appointment.should_receive(:all).with(:medic => 'Hector Medina', :user_friendly_name => 'user_friendly_name@email.com').and_return([])
+      new_appointment=Appointment.new
+      new_appointment.medic = 'Hector Medina'
+      new_appointment.date_and_hour = DateTime.new(tomorrow.year,tomorrow.month,tomorrow.day,19,0,0,0)
+      new_appointment.duration = 30
+      new_appointment.patient_name = "patient_email@email.com"
+      new_appointment.user_friendly_name = "user_friendly_name@email.com"
+      new_appointment.check_turn_is_taken().should be true
+    end
+
+    it 'should be false when patient already have an appointment for selected date and hour' do
+      tomorrow=DateTime.now+1
+      appointment=Appointment.add_new_appointment('Roberto Bolanios',tomorrow,19,0,20, "patient_email@email.com", "user_friendly_name@email.com")
+      Appointment.should_receive(:all).with(:medic => 'Hector Medina', :user_friendly_name => 'user_friendly_name@email.com').and_return([appointment])
+      new_appointment=Appointment.new
+      new_appointment.medic = 'Hector Medina'
+      new_appointment.date_and_hour = DateTime.new(tomorrow.year,tomorrow.month,tomorrow.day,19,0,0,0)
+      new_appointment.duration = 30
+      new_appointment.patient_name = "patient_email@email.com"
+      new_appointment.user_friendly_name = "user_friendly_name@email.com"
+      new_appointment.check_turn_is_taken().should be false
+    end
+  end
   describe 'cancel' do
     it 'should destroy selected appointment' do
       tomorrow=DateTime.now+1

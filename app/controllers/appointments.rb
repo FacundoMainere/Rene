@@ -39,8 +39,6 @@ Rene::App.controllers :appointments do
                flash.now[:error] = "Error: Turno ya registrado. Ingrese un nuevo turno."
             elsif not @appointment.check_patient_is_available
                flash.now[:error] = "Error: Este paciente ya tiene un turno en ese horario."
-            else
-               flash.now[:error] = "Error: Todos los campos son requeridos."
             end
             render 'appointments/new'
          end

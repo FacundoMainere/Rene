@@ -25,7 +25,7 @@ describe Account do
       account.medic_list_upcoming_appointments().should eq []
     end
   end
-  
+
   describe 'patient_list_upcoming_turns' do
     it 'should return a list with a single element when only one appointment validates the condition' do
       appointment1 = Appointment.new
@@ -47,6 +47,15 @@ describe Account do
       Appointment.should_receive(:all).with(:patient_name => 'user_friendly_name@email.com').and_return([appointment1, appointment2])
       Appointment.should_receive(:all).with(:date_and_hour.gte => anything(),:order => [:date_and_hour.asc]).and_return([])
       account.patient_list_upcoming_appointments().should eq []
+    end
+  end
+  describe 'create_with_omniauth' do
+    it 'should receive return a fully created account' do
+      auth=OmniAuth.config.add_mock(:twitter, {:provider => 'twitter', :uid => '12345', :info =>{:nickname=>'rspec_user'}})
+      account = Account.new
+      Account.should_receive(:new).and_return(account)
+      account.should_receive(:save)
+      Account.create_with_omniauth(auth).should eq account
     end
   end
 end

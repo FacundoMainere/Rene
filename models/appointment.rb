@@ -14,7 +14,6 @@ class Appointment
 
   def check_date
     return (self.date_and_hour >= DateTime.now) if self.date_and_hour.is_a?(DateTime)
-    return false
   end
 
   def capitalize_name(name)

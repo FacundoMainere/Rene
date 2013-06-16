@@ -21,5 +21,5 @@ Feature: Patient Cancel Turn
     Given the appointment with "Alvaro Ropereo" tomorrow at "13:00" for "cucumber_user" was already booked by "roberto_r"
     And the appointment with "Hector Mendoza" tomorrow at "12:00" for "cucumber_user" was already booked by "josefina_j"
     And I am on "the patient appointment list page"
-    And I click on checkbox of "Hector Mendoza" appointment
+    When I press "cancelTurnButton"
     Then I should see "Error: Debe seleccionar al menos un turno."

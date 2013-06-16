@@ -6,6 +6,9 @@ require 'simplecov'
 SimpleCov.start do
   root(File.join(File.dirname(__FILE__), '../'))
   add_filter '/spec/'
+  add_filter '/features/'
+  add_filter '/app/'
+  add_filter '/config/'
 end
 
 require File.expand_path(File.dirname(__FILE__) + "/../config/boot")
