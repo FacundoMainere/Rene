@@ -66,3 +66,4 @@ Rene::App.controllers :appointments do
      # end
       redirect params[:redirect_page]
    end
+end
