@@ -1,7 +1,7 @@
 <h3>Mis turnos como <%= @rol %>:</h3>
 
 <form method="post" action='/appointments/delete'>
-   <%= csrf_token_field %>  
+   <%= csrf_token_field %>
 
    <% if @appointments.empty? %>
          <legend>No hay turnos proximos.</legend>
@@ -9,7 +9,7 @@
       <table class="table table-bordered table-striped table-hover">
         <thead>
           <tr>
-              <th width="15"></th> 
+              <th width="15"></th>
               <th>Doctor/a</th>
               <th>Fecha</th>
               <th>Hora</th>
@@ -20,7 +20,7 @@
          <tbody>
             <% @appointments.each do |appointment| %>
             <tr>
-               <td><input type="checkbox" name="appointments_id[]" value="<%= appointment.id %>"> </td>
+              <td><input type="checkbox" name="<%="appointments_id["+appointment.id.to_s+"]"%>" value="<%= appointment.id.to_s %>"> </td>
                <td><%= appointment.medic %></td>
                <td><%= appointment.date_and_hour.to_s[0..9] %></td>
                <td><%= appointment.date_and_hour.to_s[11..15] %></td>
@@ -30,7 +30,7 @@
                   <% else %>
                      <%= appointment.user_friendly_name %>
                   <% end %>
-                </td>          
+                </td>
             </tr>
             <% end %>
          </tbody>

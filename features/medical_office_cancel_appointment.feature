@@ -6,7 +6,6 @@ Feature: Medical Office Cancel Turn
   Background:
     Given I am logged in
 
-  @wip
   @savesMedic
   Scenario: Happy path
     Given the appointment with "Alvaro Ropereo" tomorrow at "13:00" for "roberto_r" was already booked by "cucumber_user"
