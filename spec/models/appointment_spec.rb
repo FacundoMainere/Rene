@@ -124,4 +124,18 @@ describe Appointment do
       new_appointment.check_patient_is_available().should be false
     end
   end
+  describe 'cancel' do
+    it 'should destroy selected appointment' do
+      tomorrow=DateTime.now+1
+      new_appointment=Appointment.new
+      new_appointment.medic = 'Hector Medina'
+      new_appointment.date_and_hour = DateTime.new(tomorrow.year,tomorrow.month,tomorrow.day,19,0,0,0)
+      new_appointment.duration = 30
+      new_appointment.patient_name = "patient_email@email.com"
+      new_appointment.id = 1
+      Appointment.should_receive(:get).with(1).and_return([new_appointment])
+      new_appointment.should_receive(:destroy).and_return(true)
+      new_appointment.cancel
+    end
+  end
 end

@@ -40,6 +40,11 @@ class Appointment
     (first_app_range.first <= second_app_range.last) and (second_app_range.first <= first_app_range.last)
   end
 
+  def cancel
+    Appointment.get(id)
+    self.destroy
+  end
+
   def Appointment.add_new_appointment(medic_name, date, hour, minutes, duration=15, patient_name, user_friendly_name)
     new_appointment = self.new
     new_appointment.medic = new_appointment.capitalize_name(medic_name)
