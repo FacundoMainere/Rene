@@ -60,8 +60,9 @@ Given(/^I fill in "(.*?)" with a past hour$/) do |field|
   fill_in(field, :with => (Time.now-1).to_s[11..15])
 end
 
-Given(/^I click on checkbox of "(.*?)" appointment$/) do |field|
-  check(field)
+Given(/^I click on checkbox of "(.*?)" appointment$/) do |medic_name|
+   #appointment_id = Appointment.find_by_medic(medic_name).id
+   #page.check('appointments_id[]', :text => appointment_id)
 end
 
 Then(/^I should not see "(.*?)"$/) do |text|

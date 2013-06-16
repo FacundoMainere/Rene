@@ -5,7 +5,6 @@ Feature: Patient Cancel Turn
 
   Background:
     Given I am logged in
-
   @wip
   @savesMedic
   Scenario: Happy path
