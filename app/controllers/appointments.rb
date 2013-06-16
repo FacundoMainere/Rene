@@ -9,8 +9,16 @@ Rene::App.controllers :appointments do
       render 'appointments/show'
    end
 
-   get :list do
+   get :medical_office_list do
+      @rol = "Consultorio"
       @appointments = current_account.medic_list_upcoming_appointments
+      @message = "No hay turnos proximos."
+      render 'appointments/list'
+   end
+
+   get :patient_list do
+      @rol = "Paciente"
+      @appointments = current_account.patient_list_upcoming_appointments
       @message = "No hay turnos proximos."
       render 'appointments/list'
    end
