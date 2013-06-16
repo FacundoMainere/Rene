@@ -1,10 +1,10 @@
 <h3>Mis turnos como <%= @rol %>:</h3>
 
-<form method="get" action='/appointments/delete'>
+<form method="post" action='/appointments/delete'>
    <%= csrf_token_field %>  
 
    <% if @appointments.empty? %>
-         <legend><%= @message %></legend>
+         <legend>No hay turnos proximos.</legend>
    <% else %>
       <table class="table table-bordered table-striped table-hover">
         <thead>
@@ -13,19 +13,14 @@
               <th>Doctor/a</th>
               <th>Fecha</th>
               <th>Hora</th>
-              <%if @rol == "Consultorio" %>
-                 <th>Paciente</th>
-                 <input type="hidden" name="redirect_page" value="appointments/medical_office_list">
-              <% else %>
-                 <th>Consultorio</th>
-                 <input type="hidden" name="redirect_page" value="appointments/patient_list">
-              <% end %>
+              <th><%= @rol %></th>
+              <input type="hidden" name="rol" value="<%= @rol %>">
           </tr>
          </thead>
          <tbody>
             <% @appointments.each do |appointment| %>
             <tr>
-               <td><input type="checkbox" name="appointments_id" value="<%= appointment.id %>"></td>
+               <td><input type="checkbox" name="appointments_id[]" value="<%= appointment.id %>"> </td>
                <td><%= appointment.medic %></td>
                <td><%= appointment.date_and_hour.to_s[0..9] %></td>
                <td><%= appointment.date_and_hour.to_s[11..15] %></td>
@@ -40,15 +35,15 @@
             <% end %>
          </tbody>
      </table>
-
-     <input type="submit" class="btn btn-primary btn-large" id="cancelTurnButton" value="Cancelar Turno"/> 
-
-    </br></br>
     <% if flash[:error] %>
         <div class="alert alert-error">
           <%=flash[:error] %>
         </div>
     <% end %>
+     <input type="submit" class="btn btn-primary btn-large" id="cancelTurnButton" value="Cancelar Turno"/> 
+
+    </br></br>
+
 
    <% end %>
 </form>
