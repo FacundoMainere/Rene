@@ -58,4 +58,16 @@ Rene::App.helpers do
       when ! (valid_patient_name?(patient_name)) then "Error: El nombre de usuario del paciente no debe contener espacios."
     end    
   end
+
+
+  def render_list(rol)
+      if rol == "Consultorio"
+         @appointments = current_account.medic_list_upcoming_appointments
+      else
+         @appointments = current_account.patient_list_upcoming_appointments
+      end
+      @rol = rol
+      render 'appointments/list'
+  end
+
 end
