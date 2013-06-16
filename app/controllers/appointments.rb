@@ -10,18 +10,11 @@ Rene::App.controllers :appointments do
    end
 
    get :medical_office_list do
-      @rol = "Consultorio"
-      @appointments = current_account.medic_list_upcoming_appointments
-      @message = "No hay turnos proximos."
-      @appointments_id = Array.new
-      render 'appointments/list'
+      render_list("Consultorio")
    end
 
    get :patient_list do
-      @rol = "Paciente"
-      @appointments = current_account.patient_list_upcoming_appointments
-      @message = "No hay turnos proximos."
-      render 'appointments/list'
+      render_list("Paciente")
    end
 
    post :create do
@@ -58,12 +51,16 @@ Rene::App.controllers :appointments do
 
    end
    
-   get :delete do
-      appointment = Appointment.find_by_id(params[:appointments_id])
-      appointment.destroy
-     # if ! Appointment.delete_appointment(params[:appointments_id])
-     #    flash.now[:error] = "Error: Debe seleccionar un turno"
-     # end
-      redirect params[:redirect_page]
+   post :delete do
+      appointments = params[:appointments_id]
+      puts appointments
+      if appointments.nil?
+         flash.now[:error] = "Error: Debe seleccionar al menos un turno."
+      else
+         appointments.each do |a|
+            Appointment.get(a).cancel 
+         end        
+      end
+      render_list(params[:rol])
    end
 end
