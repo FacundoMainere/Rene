@@ -13,6 +13,7 @@ Rene::App.controllers :appointments do
       @rol = "Consultorio"
       @appointments = current_account.medic_list_upcoming_appointments
       @message = "No hay turnos proximos."
+      @appointments_id = Array.new
       render 'appointments/list'
    end
 
@@ -56,5 +57,12 @@ Rene::App.controllers :appointments do
       end
 
    end
-
-end
+   
+   get :delete do
+      appointment = Appointment.find_by_id(params[:appointments_id])
+      appointment.destroy
+     # if ! Appointment.delete_appointment(params[:appointments_id])
+     #    flash.now[:error] = "Error: Debe seleccionar un turno"
+     # end
+      redirect params[:redirect_page]
+   end
