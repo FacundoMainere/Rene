@@ -4,7 +4,7 @@
    <%= csrf_token_field %>
 
    <% if @appointments.empty? %>
-         <legend>No hay turnos proximos.</legend>
+      <legend>No hay turnos proximos.</legend>
    <% else %>
       <table class="table table-bordered table-striped table-hover">
         <thead>
@@ -13,7 +13,12 @@
               <th>Doctor/a</th>
               <th>Fecha</th>
               <th>Hora</th>
-              <th><%= @rol %></th>
+              <th><% if @rol == "Consultorio" %>
+                     Paciente
+                  <% else %>
+                     Consultorio
+                  <% end %>
+              </th>
               <input type="hidden" name="rol" value="<%= @rol %>">
           </tr>
          </thead>
@@ -25,7 +30,7 @@
                <td><%= appointment.date_and_hour.to_s[0..9] %></td>
                <td><%= appointment.date_and_hour.to_s[11..15] %></td>
                <td>
-                  <%if @rol == "Consultorio" %>
+                  <% if @rol == "Consultorio" %>
                      <%= appointment.patient_name %>
                   <% else %>
                      <%= appointment.user_friendly_name %>
@@ -35,15 +40,13 @@
             <% end %>
          </tbody>
      </table>
-    <% if flash[:error] %>
+
+     <% if flash[:error] %>
         <div class="alert alert-error">
           <%=flash[:error] %>
         </div>
-    <% end %>
+     <% end %>
+
      <input type="submit" class="btn btn-primary btn-large" id="cancelTurnButton" value="Cancelar Turno"/> 
-
-    </br></br>
-
-
    <% end %>
 </form>
