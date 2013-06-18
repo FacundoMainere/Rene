@@ -159,7 +159,6 @@ describe Appointment do
       new_appointment.duration = 30
       new_appointment.patient_name = "patient_email@email.com"
       new_appointment.id = 1
-      Appointment.should_receive(:get).with(1).and_return([new_appointment])
       new_appointment.should_receive(:destroy).and_return(true)
       new_appointment.cancel
     end

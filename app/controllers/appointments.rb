@@ -55,9 +55,10 @@ Rene::App.controllers :appointments do
       if appointments.nil?
          flash.now[:error] = "Error: Debe seleccionar al menos un turno."
       else
-         appointments.each do |a|
-            Appointment.get(a).cancel 
-         end        
+         appointments.each do |appID|
+            appointment=Appointment.get(appID)
+            if !appointment.nil? then appointment.cancel end
+         end
       end
       render_list(params[:rol])
    end

@@ -40,7 +40,6 @@ class Appointment
   end
 
   def cancel
-    Appointment.get(id)
     self.destroy
   end
 
