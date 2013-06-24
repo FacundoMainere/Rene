@@ -58,8 +58,7 @@ Rene::App.helpers do
     !one_is_empty_pending_appointment?(hour, date, medic_name, duration)
   end
 
-  def validation_error(hour, date, medic_name, duration, patient_name)
-		validation_error_pending_appointment(hour, date, medic_name, duration)    
+  def validation_error(hour, date, medic_name, duration, patient_name)  
 		case
       when patient_name == "" then "Error: El nombre de usuario del paciente es requerido."
       when ! (valid_patient_name?(patient_name)) then "Error: El nombre de usuario del paciente no debe contener espacios."
@@ -80,6 +79,30 @@ Rene::App.helpers do
     end  		    
   end
 
+	def appointment_new_instance(hour,date,medic,duration,patient_name,office)
+			hour = render_hour(params[:hour])
+		  minutes = render_minutes(params[:hour])
+			     
+			return Appointment.add_new_appointment(medic, render_date(date), hour, 
+		                                                    minutes, duration,patient_name, office)	
+	end
+
+	def appointment_new_save(appointment,appointment_type)
+		   if appointment.save
+					idApp = appointment.id.to_s
+					session[:id] = appointment.id         
+					redirect '/appointments/show'+appointment_type
+       else
+          if not appointment.check_date
+             flash[:error] = "Error: Fecha/hora invalida. Ingrese una fecha/hora posterior."
+          elsif not appointment.check_turn_is_taken
+             flash[:error] = "Error: Turno ya registrado. Ingrese un nuevo turno."
+          elsif not appointment.check_patient_is_available
+             flash[:error] = "Error: Este paciente ya tiene un turno en ese horario."
+          end
+          redirect 'appointments/new'+appointment_type
+       end
+	end
 
   def render_list(rol)
     if rol == "Consultorio" 
