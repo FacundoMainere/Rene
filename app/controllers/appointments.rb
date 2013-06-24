@@ -1,11 +1,24 @@
 Rene::App.controllers :appointments do
 
-   get :new do
-      render 'appointments/new'
+  get :new do
+		@rol = 'Turno Asignado'      
+		render 'appointments/new'
    end
 
+	get :new_pending_appointment do
+		@rol = 'Turno Pendiente'
+		render 'appointments/new'
+	end
+
    get :show do
-      @appointment = Appointment.get(params[:id].to_i)
+			@rol = "Turno Asignado"      
+			@appointment = Appointment.get(session[:id])
+      render 'appointments/show'
+   end
+
+	 get :show_pending_appointment do
+			@rol = "Turno Pendiente"       
+			@appointment = Appointment.get(session[:id])
       render 'appointments/show'
    end
 
@@ -13,43 +26,59 @@ Rene::App.controllers :appointments do
       render_list("Consultorio")
    end
 
-   get :patient_list do
-      render_list("Paciente")
-   end
+ 	get :patient_list do
+	  	render_list("Paciente")
+	end
+		
+	get :select_office do
+		render 'appointments/select_office'
+	end
 
-   post :create do
-      medic_name = params[:medic]
-      date = params[:date]
-      hour_and_minutes = params[:hour]
-      duration = params[:duration]
-      patient_name = params[:patient_name]
+	get :book_appointment_list do	
+		@rol = "Paciente Reserva" 
+	 	@appointments = Appointment.patient_booker_list_upcoming_appointments(params[:office])
+    render 'appointments/list'
+	end
 
-      if validation(hour_and_minutes, date, medic_name, duration, patient_name)
-         hour = render_hour(hour_and_minutes)
-         minutes = render_minutes(hour_and_minutes)
-         @appointment = Appointment.add_new_appointment(medic_name, render_date(date), hour, 
-                                                        minutes, duration, patient_name, current_account.friendly_name)
-
-         if @appointment.save
-            redirect(url(:appointments, :show, :id => @appointment.id))
-         else
-            if not @appointment.check_date
-               flash.now[:error] = "Error: Fecha/hora invalida. Ingrese una fecha/hora posterior."
-            elsif not @appointment.check_turn_is_taken
-               flash.now[:error] = "Error: Turno ya registrado. Ingrese un nuevo turno."
-            elsif not @appointment.check_patient_is_available
-               flash.now[:error] = "Error: Este paciente ya tiene un turno en ese horario."
-            end
-            render 'appointments/new'
-         end
+	post :book_appointment do
+		  appointments = params[:appointments_id]
+      if appointments.nil?
+         flash.now[:error] = "Error: Debe seleccionar al menos un turno."
       else
-         flash.now[:error] = validation_error(hour_and_minutes, date, medic_name, duration, patient_name)
-         render 'appointments/new'
+         appointments.each do |appID|
+            appointment=Appointment.get(appID)
+            if !appointment.nil? then appointment.assign_patient(current_account.friendly_name)		
+						end
+         end
       end
+      render 'appointments/show_book_appointment_message'  
+   end
+
+	post :create_pending_appointment do
+		validation = validation_pending_appointment(params[:hour], params[:date], params[:medic],params[:duration]) 
+		if validation		
+			@appointment = appointment_new_instance(params[:hour], params[:date], params[:medic],params[:duration],"",current_account.friendly_name)
+		  appointment_new_save(@appointment,'_pending_appointment')
+		else
+       flash[:error] = validation_error_pending_appointment(params[:hour], params[:date], params[:medic],params[:duration])
+       redirect 'appointments/new_pending_appointment'
+    end
 
    end
-   
-   post :delete do
+
+	post :create do
+		validation = validation(params[:hour], params[:date], params[:medic],params[:duration],params[:patient_name])  
+		if validation		
+			@appointment = appointment_new_instance(params[:hour], params[:date], params[:medic],params[:duration],params[:patient_name],current_account.friendly_name)
+		  appointment_new_save(@appointment,'')
+		else
+       flash[:error] = validation_error(params[:hour], params[:date], params[:medic],params[:duration],params[:patient_name])
+       redirect 'appointments/new'
+    end
+
+	end
+
+  post :delete do
       appointments = params[:appointments_id]
       puts appointments
       if appointments.nil?

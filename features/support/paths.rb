@@ -21,6 +21,12 @@ module NavigationHelpers
     when /the medical office appointment list\s?page/
       '/appointments/medical_office_list'
 
+		when /the new patient pending appointment\s?page/
+			'/appointments/new_pending_appointment'
+
+		when /the select office\s?page/
+			'/appointments/select_office'
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
