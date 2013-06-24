@@ -163,4 +163,17 @@ describe Appointment do
       new_appointment.cancel
     end
   end
+
+	describe 'patient_booker_list_upcoming_appointments' do
+    it 'should return a list with a single element when only one appointment validates the condition' do
+			appointment1 = Appointment.new
+      appointment2 = Appointment.new
+
+      Appointment.should_receive(:all).with(:patient_name => "", :user_friendly_name => "Consultorio").and_return([appointment1])
+      Appointment.should_receive(:all).with(:date_and_hour.gte => anything(),:order => [:date_and_hour.asc]).and_return([appointment1,appointment2])
+
+      Appointment.patient_booker_list_upcoming_appointments("Consultorio").size.should be 1
+    end
+	end
+	
 end

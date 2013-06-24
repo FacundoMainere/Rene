@@ -82,13 +82,13 @@ Rene::App.helpers do
 
 
   def render_list(rol)
-      if rol == "Consultorio"
-         @appointments = current_account.medic_list_upcoming_appointments
-      else
-         @appointments = current_account.patient_list_upcoming_appointments
-      end
-      @rol = rol
-      render 'appointments/list'
+    if rol == "Consultorio" 
+			@appointments = current_account.medic_list_upcoming_appointments
+    else 
+			@appointments = current_account.patient_list_upcoming_appointments
+    end
+		@rol = rol  
+		render 'appointments/list'
   end
 
 end

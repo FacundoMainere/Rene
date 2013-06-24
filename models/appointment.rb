@@ -16,6 +16,11 @@ class Appointment
     return (self.date_and_hour >= DateTime.now) if self.date_and_hour.is_a?(DateTime)
   end
 
+	def self.patient_booker_list_upcoming_appointments(consultorio)
+		appointments = Appointment.all(:patient_name => "", :user_friendly_name => consultorio) &
+    Appointment.all(:date_and_hour.gte => DateTime.now, :order => [:date_and_hour.asc])
+  end
+
   def capitalize_name(name)
     splitted=name.split(' ')
     resultingName=''
@@ -42,6 +47,12 @@ class Appointment
   def cancel
     self.destroy
   end
+
+	def assign_patient(name)
+		new_appointment = Appointment.add_new_appointment(self.medic, self.date_and_hour, self.date_and_hour.hour, self.date_and_hour.to_s[14..15].to_i, self.duration, name, self.user_friendly_name)
+		self.cancel
+		new_appointment.save
+	end
 
   def Appointment.add_new_appointment(medic_name, date, hour, minutes, duration=15, patient_name, user_friendly_name)
     new_appointment = self.new

@@ -1,0 +1,25 @@
+<div class="well">
+  <form class="centered" method="post" action='/appointments/create_pending_appointment'>
+    <%= csrf_token_field %>
+    <h1>Nuevo turno disponible:</h1>
+      <label for='medic'>Nombre del médico:</label>
+    <input type="text" id="appointment[medic]" name="medic" placeholder="Nombre Apellido" class="large" required/>
+      <label for='date'>Fecha:</label>
+    <input type="date" id="appointment[date]" name="date" placeholder="AAAA-MM-DD" required/>
+       <label for='hour'>Horario:</label>
+    <input type="time" id="appointment[hour]" name="hour" placeholder="HH:MM" class="tiny" required/>
+      <label for='duration'>Tiempo de consulta:</label>
+    <input type="number" id="appointment[duration]" name="duration" value="15" required/>
+
+    </br>
+    <input type="submit" class="btn big" id="saveButton" value="Guardar" />
+
+    </br></br>
+    <% if flash[:error] %>
+        <div class="alert alert-error">
+          <%=flash[:error] %>
+        </div>
+    <% end %>
+
+  </form>
+</div>

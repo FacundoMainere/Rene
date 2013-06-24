@@ -1,0 +1,11 @@
+<div class="well">
+    <h1>Detalles del turno:</h1>
+    <p>Dr/a.: <%= @appointment.medic %></p>
+    <p>Fecha: <%= @appointment.date_and_hour.to_s[0..9] %></p>
+    <p>Hora: <%= @appointment.date_and_hour.to_s[11..15] %></p>
+		<p>Duración: <%= @appointment.duration %> minutos.</p>
+
+		<div class = "well">
+	<a href="/appointments/new_pending_appointment"><button class = "btn btn-primary" id="GoBack">Crear Nuevo Turno Disponible<button></a> 
+		</div>
+</div>
