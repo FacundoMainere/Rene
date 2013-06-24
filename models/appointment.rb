@@ -7,7 +7,7 @@ class Appointment
   property :medic, String, :required => true
   property :date_and_hour, DateTime, :required => true
   property :duration, Integer, :required => true
-  property :patient_name, String, :required => true
+  property :patient_name, String
   property :user_friendly_name, String, :required => true
 
   validates_with_method :check_date, :check_turn_is_taken, :check_patient_is_available

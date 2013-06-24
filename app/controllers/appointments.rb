@@ -9,13 +9,55 @@ Rene::App.controllers :appointments do
       render 'appointments/show'
    end
 
+	 get :show_pending_appointment do
+      @appointment = Appointment.get(params[:id].to_i)
+      render 'appointments/show_pending_appointment'
+   end
+
    get :medical_office_list do
       render_list("Consultorio")
    end
 
-   get :patient_list do
-      render_list("Paciente")
+ 	get :patient_list do
+	  render_list("Paciente")
+	end
+		
+	get :new_pending_appointment do
+			render 'appointments/new_pending_appointment'
+	end
+
+	post :create_pending_appointment do
+    medic_name = params[:medic]
+    date = params[:date]
+    hour_and_minutes = params[:hour]
+    duration = params[:duration]
+
+    if validation_pending_appointment(hour_and_minutes, date, medic_name, duration)
+       hour = render_hour(hour_and_minutes)
+       minutes = render_minutes(hour_and_minutes)
+       @appointment = Appointment.add_new_appointment(medic_name, render_date(date), hour, 
+                                                      minutes, duration, nil , current_account.friendly_name)
+
+       if @appointment.save
+          redirect(url(:appointments, :show_pending_appointment, :id => @appointment.id))
+       else
+          if not @appointment.check_date
+             flash.now[:error] = "Error: Fecha/hora invalida. Ingrese una fecha/hora posterior."
+          elsif not @appointment.check_turn_is_taken
+             flash.now[:error] = "Error: Turno ya registrado. Ingrese un nuevo turno."
+          elsif not @appointment.check_patient_is_available
+             flash.now[:error] = "Error: Este paciente ya tiene un turno en ese horario."
+          end
+          render 'appointments/new_pending_appointment'
+       end
+    else
+       flash.now[:error] = validation_error_pending_appointment(hour_and_minutes, date, medic_name, duration)
+       render 'appointments/new_pending_appointment'
+    end
+
    end
+
+
 
    post :create do
       medic_name = params[:medic]

@@ -36,27 +36,48 @@ Rene::App.helpers do
     !patient_name.match(" ")  
   end
 
-  def one_is_empty?(hour, date, medic_name, duration, patient_name)
-    hour == "" || date == "" || medic_name == "" || duration == "" || patient_name == ""
+	def one_is_empty_pending_appointment?(hour, date, medic_name, duration)
+    hour == "" || date == "" || medic_name == "" || duration == ""
   end
 
+  def one_is_empty?(hour, date, medic_name, duration, patient_name)
+		one_is_empty_pending_appointment?(hour, date, medic_name, duration) || patient_name == ""
+  end
+
+	def valid_hour_date_and_medic_name(hour, date, medic_name)
+		valid_hour?(hour) && valid_date?(date) && valid_medic_name?(medic_name)
+	end
+
   def validation(hour, date, medic_name, duration, patient_name)
-    valid_hour?(hour) && valid_date?(date) && valid_medic_name?(medic_name) && 
+		valid_hour_date_and_medic_name(hour, date, medic_name) && 
     valid_patient_name?(patient_name) && ! one_is_empty?(hour, date, medic_name, duration, patient_name)
   end
 
+	def validation_pending_appointment(hour, date, medic_name, duration)
+    valid_hour_date_and_medic_name(hour, date, medic_name) && 
+    !one_is_empty_pending_appointment?(hour, date, medic_name, duration)
+  end
+
   def validation_error(hour, date, medic_name, duration, patient_name)
+		validation_error_pending_appointment(hour, date, medic_name, duration)    
+		case
+      when patient_name == "" then "Error: El nombre de usuario del paciente es requerido."
+      when ! (valid_patient_name?(patient_name)) then "Error: El nombre de usuario del paciente no debe contener espacios."
+		else
+			validation_error_pending_appointment(hour, date, medic_name, duration)  
+    end
+	end
+
+  def validation_error_pending_appointment(hour, date, medic_name, duration)
     case
       when hour == "" then "Error: El campo 'Horario' es requerido."
       when date == "" then "Error: El campo 'Fecha' es requerido."
       when medic_name == "" then "Error: El campo 'Nombre del medico' es requerido."
       when duration == "" then "Error: El campo 'Tiempo de consulta' es requerido."
-      when patient_name == "" then "Error: El nombre de usuario del paciente es requerido."
       when ! (valid_hour?(hour)) then "Error: El formato de hora debe ser HH:MM."
       when ! (valid_date?(date)) then "Error: El formato de fecha debe ser aaaa-mm-dd."
       when ! (valid_medic_name?(medic_name)) then "Error: El nombre debe contener solo letras."
-      when ! (valid_patient_name?(patient_name)) then "Error: El nombre de usuario del paciente no debe contener espacios."
-    end    
+    end  		    
   end
 
 
