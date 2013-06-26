@@ -73,6 +73,20 @@ Then(/^I should not see "(.*?)"$/) do |text|
     end
 end
 
+Given(/^the appointment with "(.*?)" with date "(.*?)" at "(.*?)" by "(.*?)"$/) do |doctor, date, hour, author|
+  appointment = Appointment.add_new_appointment(doctor, DateTime.new(date[0..3].to_i,date[5..6].to_i,date[8..9].to_i), hour[0..1].to_i, hour[3..4].to_i, "", author)
+  appointment.save
+end
+
+Given(/^I select "(.*?)" appointment$/) do |doctor|
+   appointment_id = Appointment.find_by_medic(doctor).id
+   find(:checkbox, "appointments_id["+appointment_id.to_s+"]").set(true)
+end
+
+Given(/^the appointment with "(.*?)" with date "(.*?)" at "(.*?)" for "(.*?)" was already booked by "(.*?)"$/) do |doctor, date, hour, patient, author|
+  appointment = Appointment.add_new_appointment(doctor, DateTime.new(date[0..3].to_i,date[5..6].to_i,date[8..9].to_i), hour[0..1].to_i, hour[3..4].to_i, patient, author)
+  appointment.save
+end
 
 After('@savesMedic') do
   Appointment.all.destroy
