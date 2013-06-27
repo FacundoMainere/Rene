@@ -49,9 +49,8 @@ class Appointment
   end
 
 	def assign_patient(name)
-		new_appointment = Appointment.add_new_appointment(self.medic, self.date_and_hour, self.date_and_hour.hour, self.date_and_hour.to_s[14..15].to_i, self.duration, name, self.user_friendly_name)
-		self.cancel
-		new_appointment.save
+		self.patient_name = name
+	  self.save
 	end
 
   def Appointment.add_new_appointment(medic_name, date, hour, minutes, duration=15, patient_name, user_friendly_name)
