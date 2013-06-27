@@ -1,19 +1,16 @@
 <div class="well">
-	 <h1>Detalles del turno:</h1>
+  <div class="centered">
+	 <h3>Detalles del turno:</h3>
     <p>Dr/a.: <%= @appointment.medic %></p>
     <p>Fecha: <%= @appointment.date_and_hour.to_s[0..9] %></p>
     <p>Hora: <%= @appointment.date_and_hour.to_s[11..15] %></p>
 
 		<% if @rol == "Turno Asignado" %>	
-					<p>Nombre del paciente: <%= @appointment.patient_name %></p>
-					<div class = "well">
-						<a href="/appointments/new"><button class = "btn btn-primary" id="returnNew">Nuevo Turno<button></a> 
-					</div>
+			<p>Nombre del paciente: <%= @appointment.patient_name %></p>
+			<a href="/appointments/new" class = "btn btn-primary" id="returnNew">Nuevo Turno</a> 
 		<% else %>	
-					<p>Duración: <%= @appointment.duration %> minutos.</p>					
-					<div class = "well">
-						<a href="/appointments/new_pending_appointment"><button class = "btn btn-primary" id="PendingAppointmentNew">Crear Nuevo Turno Disponible<button></a> 
-					</div>
+			<p>Duración: <%= @appointment.duration %> minutos.</p>
+			<a href="/appointments/new_pending_appointment" class = "btn btn-primary" id="PendingAppointmentNew">Crear Nuevo Turno Disponible</a> 
 		<% end %>
-
+  </div>
 </div>

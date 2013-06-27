@@ -4,7 +4,7 @@
 		<% if @rol == "Turno Asignado" %>	
  				action='/appointments/create'>
 				<%= csrf_token_field %>
-				<h1>Nuevo turno:</h1
+				<h1>Nuevo turno:</h1>
 		<% else %>	
 				action='/appointments/create_pending_appointment'>
 				<%= csrf_token_field %>
