@@ -6,12 +6,12 @@ Feature: Patient Book Appointment
   Background:
     Given I am logged in
 	
-	@savesMedic
+  @savesMedic
   Scenario: Happy path
-		Given the appointment with "Alvaro Ropereo" with date "2040-10-10" at "13:00" by "roberto_r"
+    Given the appointment with "Alvaro Ropereo" with date "2040-10-10" at "13:00" by "roberto_r"
     And the appointment with "Hector Mendoza" with date "2040-10-10" at "12:00" by "josefina_j"
     And I am on "the select office page"
-		And I fill in "office" with "roberto_r"
+    And I fill in "office" with "roberto_r"
 		When I press "selectOfficeButton"
     And I select "Alvaro Ropereo" appointment
     When I press "bookAppointmentButton"
@@ -24,5 +24,14 @@ Feature: Patient Book Appointment
 		And I am on "the select office page"
 		And I fill in "office" with "roberto_r"
 		When I press "selectOfficeButton"
-    Then I should see "No hay turnos proximos."
+    Then I should see "No hay turnos disponibles."
 
+  @savesMedic
+  Scenario: No appointment is selected
+    Given the appointment with "Alvaro Ropereo" with date "2040-10-10" at "13:00" by "roberto_r"
+    And the appointment with "Hector Mendoza" with date "2040-10-10" at "12:00" by "josefina_j"
+    And I am on "the select office page"
+    And I fill in "office" with "roberto_r"
+		And I press "selectOfficeButton"
+    When I press "bookAppointmentButton"
+    Then I should see "Error: Debe seleccionar al menos un turno."
