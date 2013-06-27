@@ -1,12 +1,6 @@
 <h3>Mis turnos como <%= @rol %>:</h3>
 
-<form method="post" 
-		<% if @rol == "Paciente Reserva" %>	
-			action='/appointments/book_appointment'> 
-		<% else %>	
-			action='/appointments/delete'>
-		<% end %>
-
+<form method="post" action='/appointments/delete'>
    <%= csrf_token_field %>
 
    <% if @appointments.empty? %>
@@ -53,11 +47,6 @@
         </div>
      <% end %>
 		
-     <input type="submit" class="btn btn-primary btn-large" 
-			<% if @rol == "Paciente Reserva" %>	
-				id="bookAppointmentButton" value="Reservar Turno"/> 
-			<% else %>	
-				id="cancelTurnButton" value="Cancelar Turno"/> 
-			<% end %>
+     <input type="submit" class="btn btn-primary" id="cancelTurnButton" value="Cancelar Turno"/>
    <% end %>
 </form>

@@ -89,9 +89,8 @@ Rene::App.helpers do
 
 	def appointment_new_save(appointment,appointment_type)
 		   if appointment.save
-					idApp = appointment.id.to_s
 					session[:id] = appointment.id         
-					redirect '/appointments/show'+appointment_type
+					redirect '/appointments/show' + appointment_type
        else
           if not appointment.check_date
              flash[:error] = "Error: Fecha/hora invalida. Ingrese una fecha/hora posterior."
@@ -100,7 +99,7 @@ Rene::App.helpers do
           elsif not appointment.check_patient_is_available
              flash[:error] = "Error: Este paciente ya tiene un turno en ese horario."
           end
-          redirect 'appointments/new'+appointment_type
+          redirect 'appointments/new' + appointment_type
        end
 	end
 
@@ -112,6 +111,12 @@ Rene::App.helpers do
     end
 		@rol = rol  
 		render 'appointments/list'
+  end
+
+  def render_available_appointment_list_view_with_error(medical_office_name)
+    @appointments = Appointment.patient_booker_list_upcoming_appointments(medical_office_name)
+    @medical_office = medical_office_name
+    render 'appointments/available_appointment_list'
   end
 
 end

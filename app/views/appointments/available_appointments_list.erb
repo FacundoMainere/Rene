@@ -1,0 +1,38 @@
+<h3>Reservar turno en consultorio:  <%= @medical_office %></h3>
+
+<form method="post" action='/appointments/book_appointment'>
+   <%= csrf_token_field %>
+
+   <% if @appointments.empty? %>
+      <legend>No hay turnos disponibles.</legend>
+   <% else %>
+          <table class="table table-bordered table-striped table-hover">
+            <thead>
+              <tr>
+                  <th width="15"></th>
+                  <th>Doctor/a</th>
+                  <th>Fecha</th>
+                  <th>Hora</th>
+              </tr>
+             </thead>
+             <tbody>
+                <% @appointments.each do |appointment| %>
+                <tr>
+                  <td><input type="checkbox" name="<%="appointments_id["+appointment.id.to_s+"]"%>" value="<%= appointment.id.to_s %>"> </td>
+                   <td><%= appointment.medic %></td>
+                   <td><%= appointment.date_and_hour.to_s[0..9] %></td>
+                   <td><%= appointment.date_and_hour.to_s[11..15] %></td>
+                <% end %>
+             </tbody>
+         </table>
+
+         <% if flash[:error] %>
+            <div class="alert alert-error">
+              <%=flash[:error] %>
+            </div>
+         <% end %>
+		     <input type="hidden" name="medical_office_name" value="<%= @medical_office %>" />
+         <input type="submit" class="btn btn-primary" id="bookAppointmentButton" value="Reservar Turno"/>
+
+   <% end %>
+</form>
