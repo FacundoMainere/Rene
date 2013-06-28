@@ -16,8 +16,8 @@ class Appointment
     return (self.date_and_hour >= DateTime.now) if self.date_and_hour.is_a?(DateTime)
   end
 
-	def self.patient_booker_list_upcoming_appointments(consultorio)
-		appointments = Appointment.all(:patient_name => "", :user_friendly_name => consultorio) &
+  def self.patient_booker_list_upcoming_appointments(consultorio)
+    appointments = Appointment.all(:patient_name => "", :user_friendly_name => consultorio) &
     Appointment.all(:date_and_hour.gte => DateTime.now, :order => [:date_and_hour.asc])
   end
 
@@ -34,25 +34,28 @@ class Appointment
   end
 
   def check_patient_is_available
-    turns_by_a_doctor=Appointment.all(:patient_name => self.patient_name)
-    turns_by_a_doctor.select{|appointment| self.overlaps(appointment)}.empty?
+    if self.patient_name=="" then return true end 
+    turns_for_a_patient=Appointment.all(:patient_name => self.patient_name)
+    turns_for_a_patient.select{|appointment| self.overlaps(appointment)}.empty?
   end
 
   def overlaps(other_appointment)
     first_app_range=self.date_and_hour..self.date_and_hour+self.duration.minutes
     second_app_range=other_appointment.date_and_hour..other_appointment.date_and_hour+other_appointment.duration.minutes
-    (first_app_range.first <= second_app_range.last) and (second_app_range.first <= first_app_range.last)
+    (first_app_range.first <= second_app_range.last) and (second_app_range.first <= first_app_range.last) and !self.is_the_same_as(other_appointment)
+  end
+
+  def is_the_same_as(other_appointment)
+    (self.id == other_appointment.id) and !self.id.nil?
   end
 
   def cancel
     self.destroy
   end
 
-	def assign_patient(name)
-	  new_appointment = Appointment.add_new_appointment(self.medic, self.date_and_hour, self.date_and_hour.hour, self.date_and_hour.to_s[14..15].to_i, self.duration, name, self.user_friendly_name)
-	  self.cancel
-     new_appointment.save
-	end
+  def assign_patient(name)
+    self.update(:patient_name => name)
+  end
 
   def Appointment.add_new_appointment(medic_name, date, hour, minutes, duration=15, patient_name, user_friendly_name)
     new_appointment = self.new

@@ -164,7 +164,7 @@ describe Appointment do
     end
   end
 
-	describe 'patient_booker_list_upcoming_appointments' do
+  describe 'patient_booker_list_upcoming_appointments' do
     it 'should return a list with a single element when only one appointment validates the condition' do
 			appointment1 = Appointment.new
       appointment2 = Appointment.new
@@ -174,17 +174,11 @@ describe Appointment do
 
       Appointment.patient_booker_list_upcoming_appointments("Consultorio").size.should be 1
     end
-	end
-	describe 'assign_patient' do
-    it 'should assign name to appointment' do
+  end
+  describe 'assign_patient' do
+    it 'should update appointment in database' do
       appointment = Appointment.new
-      appointment.should_receive(:save)
-      appointment.assign_patient('pepe')
-      appointment.patient_name.should eq 'pepe'
-    end
-    it 'should save appointment in database' do
-      appointment = Appointment.new
-      appointment.should_receive(:save)
+      appointment.should_receive(:update).with(:patient_name=>'pepe')
       appointment.assign_patient('pepe')
     end
   end
