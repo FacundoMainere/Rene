@@ -38,7 +38,7 @@ gem 'selenium-webdriver', :group => 'test'
 gem 'cucumber', :group => 'test'
 gem 'simplecov', :group => 'test'
 gem 'rack-test', :require => 'rack/test', :group => 'test'
-gem 'debugger'
+#gem 'debugger'
 
 # Padrino Stable Gem
 gem 'padrino', '0.11.1'
