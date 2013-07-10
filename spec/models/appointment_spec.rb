@@ -103,25 +103,83 @@ describe Appointment do
   describe 'check_patient_is_available' do
     it 'should be true when patient does not already have an appointment for selected date and hour' do
       tomorrow=DateTime.now+1
-      Appointment.should_receive(:all).with(:patient_email => 'patient_email@email.com').and_return([])
+      Appointment.should_receive(:all).with(:patient_name => 'patient_email@email.com').and_return([])
       new_appointment=Appointment.new
       new_appointment.medic = 'Hector Medina'
       new_appointment.date_and_hour = DateTime.new(tomorrow.year,tomorrow.month,tomorrow.day,19,0,0,0)
       new_appointment.duration = 30
-      new_appointment.patient_email = "patient_email@email.com"
+      new_appointment.patient_name = "patient_email@email.com"
       new_appointment.check_patient_is_available().should be true
     end
 
     it 'should be false when patient already have an appointment for selected date and hour' do
       tomorrow=DateTime.now+1
       appointment=Appointment.add_new_appointment('Roberto Bolanios',tomorrow,19,0,20, "patient_email@email.com", "user_friendly_name@email.com")
-      Appointment.should_receive(:all).with(:patient_email => 'patient_email@email.com').and_return([appointment])
+      Appointment.should_receive(:all).with(:patient_name => 'patient_email@email.com').and_return([appointment])
       new_appointment=Appointment.new
       new_appointment.medic = 'Hector Medina'
       new_appointment.date_and_hour = DateTime.new(tomorrow.year,tomorrow.month,tomorrow.day,19,0,0,0)
       new_appointment.duration = 30
-      new_appointment.patient_email = "patient_email@email.com"
+      new_appointment.patient_name = "patient_email@email.com"
       new_appointment.check_patient_is_available().should be false
+    end
+  end
+  describe 'check turn is taken' do
+    it 'should be true when patient does not already have an appointment for selected date and hour' do
+      tomorrow=DateTime.now+1
+      Appointment.should_receive(:all).with(:medic => 'Hector Medina', :user_friendly_name => 'user_friendly_name@email.com').and_return([])
+      new_appointment=Appointment.new
+      new_appointment.medic = 'Hector Medina'
+      new_appointment.date_and_hour = DateTime.new(tomorrow.year,tomorrow.month,tomorrow.day,19,0,0,0)
+      new_appointment.duration = 30
+      new_appointment.patient_name = "patient_email@email.com"
+      new_appointment.user_friendly_name = "user_friendly_name@email.com"
+      new_appointment.check_turn_is_taken().should be true
+    end
+
+    it 'should be false when patient already have an appointment for selected date and hour' do
+      tomorrow=DateTime.now+1
+      appointment=Appointment.add_new_appointment('Roberto Bolanios',tomorrow,19,0,20, "patient_email@email.com", "user_friendly_name@email.com")
+      Appointment.should_receive(:all).with(:medic => 'Hector Medina', :user_friendly_name => 'user_friendly_name@email.com').and_return([appointment])
+      new_appointment=Appointment.new
+      new_appointment.medic = 'Hector Medina'
+      new_appointment.date_and_hour = DateTime.new(tomorrow.year,tomorrow.month,tomorrow.day,19,0,0,0)
+      new_appointment.duration = 30
+      new_appointment.patient_name = "patient_email@email.com"
+      new_appointment.user_friendly_name = "user_friendly_name@email.com"
+      new_appointment.check_turn_is_taken().should be false
+    end
+  end
+  describe 'cancel' do
+    it 'should destroy selected appointment' do
+      tomorrow=DateTime.now+1
+      new_appointment=Appointment.new
+      new_appointment.medic = 'Hector Medina'
+      new_appointment.date_and_hour = DateTime.new(tomorrow.year,tomorrow.month,tomorrow.day,19,0,0,0)
+      new_appointment.duration = 30
+      new_appointment.patient_name = "patient_email@email.com"
+      new_appointment.id = 1
+      new_appointment.should_receive(:destroy).and_return(true)
+      new_appointment.cancel
+    end
+  end
+
+  describe 'patient_booker_list_upcoming_appointments' do
+    it 'should return a list with a single element when only one appointment validates the condition' do
+			appointment1 = Appointment.new
+      appointment2 = Appointment.new
+
+      Appointment.should_receive(:all).with(:patient_name => "", :user_friendly_name => "Consultorio").and_return([appointment1])
+      Appointment.should_receive(:all).with(:date_and_hour.gte => anything(),:order => [:date_and_hour.asc]).and_return([appointment1,appointment2])
+
+      Appointment.patient_booker_list_upcoming_appointments("Consultorio").size.should be 1
+    end
+  end
+  describe 'assign_patient' do
+    it 'should update appointment in database' do
+      appointment = Appointment.new
+      appointment.should_receive(:update).with(:patient_name=>'pepe')
+      appointment.assign_patient('pepe')
     end
   end
 end

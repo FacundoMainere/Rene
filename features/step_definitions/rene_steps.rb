@@ -16,8 +16,8 @@ end
 
 Given(/^I am logged in$/) do
   visit "/login"
-  fill_in("name", :with => "cucumber_user")
-  fill_in("email", :with => "cucumber_user@someplace.com")
+  fill_in("name", :with => "cucumber")
+  fill_in("email", :with => "cucumber_user")
   click_button "submit"
 end
 
@@ -57,7 +57,35 @@ Given(/^I fill in "(.*?)" with today$/) do |field|
 end
 
 Given(/^I fill in "(.*?)" with a past hour$/) do |field|
-  fill_in(field, :with => (Time.now-3600).to_s[11..15])
+  fill_in(field, :with => (Time.now-1).to_s[11..15])
+end
+
+Given(/^I click on checkbox of "(.*?)" appointment$/) do |medic_name|
+   appointment_id = Appointment.find_by_medic(medic_name).id
+   find(:checkbox, "appointments_id["+appointment_id.to_s+"]").set(true)
+end
+
+Then(/^I should not see "(.*?)"$/) do |text|
+  if page.respond_to? :should
+      page.should have_no_content(text)
+    else
+      assert page.has_no_content?(text)
+    end
+end
+
+Given(/^the appointment with "(.*?)" with date "(.*?)" at "(.*?)" by "(.*?)"$/) do |doctor, date, hour, author|
+  appointment = Appointment.add_new_appointment(doctor, DateTime.new(date[0..3].to_i,date[5..6].to_i,date[8..9].to_i), hour[0..1].to_i, hour[3..4].to_i, "", author)
+  appointment.save
+end
+
+Given(/^I select "(.*?)" appointment$/) do |doctor|
+   appointment_id = Appointment.find_by_medic(doctor).id
+   find(:checkbox, "appointments_id["+appointment_id.to_s+"]").set(true)
+end
+
+Given(/^the appointment with "(.*?)" with date "(.*?)" at "(.*?)" for "(.*?)" was already booked by "(.*?)"$/) do |doctor, date, hour, patient, author|
+  appointment = Appointment.add_new_appointment(doctor, DateTime.new(date[0..3].to_i,date[5..6].to_i,date[8..9].to_i), hour[0..1].to_i, hour[3..4].to_i, patient, author)
+  appointment.save
 end
 
 After('@savesMedic') do

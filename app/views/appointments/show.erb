@@ -1,10 +1,16 @@
 <div class="well">
-  <form class="centered" method="get" action='/appointments/new'>
-    <h1>Detalles del turno:</h1>
-    <p>Dr.: <%= @appointment.medic %></p>
+  <div class="centered">
+	 <h3>Detalles del turno:</h3>
+    <p>Dr/a.: <%= @appointment.medic %></p>
     <p>Fecha: <%= @appointment.date_and_hour.to_s[0..9] %></p>
     <p>Hora: <%= @appointment.date_and_hour.to_s[11..15] %></p>
-    <p>Email del paciente: <%= @appointment.patient_email %></p>
-    <input type="submit" class="btn big" id="returnNew" value="Nuevo Turno" />
-  </form>
+
+		<% if @state == "Asignado" %>	
+			<p>Nombre del paciente: <%= @appointment.patient_name %></p>
+			<a href="/appointments/new" class = "btn btn-primary" id="returnNew">Nuevo Turno</a> 
+		<% else %>	
+			<p>Duración: <%= @appointment.duration %> minutos.</p>
+			<a href="/appointments/new_pending_appointment" class = "btn btn-primary" id="PendingAppointmentNew">Crear Nuevo Turno Disponible</a> 
+		<% end %>
+  </div>
 </div>

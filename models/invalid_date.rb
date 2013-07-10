@@ -1,3 +1,0 @@
-class InvalidDate < RangeError
-
-end

@@ -31,10 +31,12 @@ gem 'dm-ar-finders'
 gem 'tilt', '1.3.7'
 
 # Test requirements
-gem 'dm-sqlite-adapter', :group => 'test'
+gem 'dm-sqlite-adapter', :group => 'test' 
 gem 'rspec', :group => 'test'
 gem 'capybara', :group => 'test'
+gem 'selenium-webdriver', :group => 'test'
 gem 'cucumber', :group => 'test'
+gem 'simplecov', :group => 'test'
 gem 'rack-test', :require => 'rack/test', :group => 'test'
 gem 'debugger'
 

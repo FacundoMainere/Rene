@@ -1,3 +1,6 @@
 language: ruby
-before_script: mysql -e 'create database rene_test;'
+before_script: 
+  - mysql -e 'create database rene_test;'
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
 script: PADRINO_ENV=travis padrino rake
