@@ -1,0 +1,11 @@
+<div class = "well">
+   <h3>Reserva de turno:</h3>
+	<form method='get' action='/appointments/book_appointment_list'>
+		      <%= csrf_token_field %>
+
+	<label for='office'>Consultorio:</label>
+	<input type='text' id='office' name='office'/>
+	<button type='submit' class="btn big" id="selectOfficeButton">Aceptar</button>
+
+	</form>
+</div>

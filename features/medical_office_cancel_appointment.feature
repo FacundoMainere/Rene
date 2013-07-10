@@ -5,12 +5,14 @@ Feature: Medical Office Cancel Turn
 
   Background:
     Given I am logged in
-  @wip
+
+  @savesMedic
   Scenario: Happy path
-    Given the appointment with "Alvaro Ropereo" tomorrow at "13:00" for "roberto@rmail.com" was already booked by "cucumber_user@someplace.com"
-    And the appointment with "Hector Mendoza" tomorrow at "12:00" for "josefina@jmail.com" was already booked by "cucumber_user@someplace.com"
-    And I am on "the appointment list page"
-    And I click cancel on "Hector Mendoza" appointment
+    Given the appointment with "Alvaro Ropereo" tomorrow at "13:00" for "roberto_r" was already booked by "cucumber_user"
+    And the appointment with "Hector Mendoza" tomorrow at "12:00" for "josefina_j" was already booked by "cucumber_user"
+    And I am on "the medical office appointment list page"
+    And I click on checkbox of "Hector Mendoza" appointment
+    When I press "cancelTurnButton"
     Then I should see "Alvaro Ropereo"
     And I should not see "Hector Mendoza"
     And I should see "1" upcoming appointments
